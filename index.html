@@ -6,58 +6,109 @@
 <title>OBI · 我的 AI 技能库</title>
 <style>
   :root {
-    --bg: #0a0e17; --bg2: #0f1524; --card: #131a2b; --border: #1e2a45;
-    --text: #e8ecf5; --muted: #8b95ad; --accent: #7c6cff; --accent2: #4cc9f0;
-    --green: #4ade80; --yellow: #fbbf24; --red: #f87171; --purple: #a78bfa;
+    --miku: #39c5bb;          /* 初音青 */
+    --miku-bright: #86e3dc;   /* 亮青 */
+    --miku-deep: #1d6f6a;     /* 深青 */
+    --bg: #0a0f14;            /* 深色底 */
+    --bg2: #0e1620;
+    --card: #101a24;
+    --border: rgba(57,197,187,.25);
+    --text: #e6f7f5;
+    --muted: #7fa8a5;
+    --pink: #ff9ec7;          /* Miku 点缀粉 */
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; line-height: 1.7; }
+  body {
+    background: var(--bg);
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(57,197,187,.15), transparent),
+      linear-gradient(180deg, #0a0f14, #080c10);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
   .wrap { max-width: 960px; margin: 0 auto; padding: 48px 24px 80px; }
 
-  header { text-align: center; margin-bottom: 56px; position: relative; }
-  .logo { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 20px; }
-  .logo-dot { width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow: 0 0 18px rgba(124,108,255,.6); }
-  .logo-text { font-size: 13px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; }
-  header h1 { font-size: 42px; font-weight: 800; letter-spacing: 1px; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  header p { color: var(--muted); margin-top: 12px; font-size: 16px; }
-  .badge { display: inline-block; margin-top: 16px; padding: 4px 14px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); font-size: 13px; background: var(--card); }
-  .stats { display: flex; justify-content: center; gap: 40px; margin: 36px 0 8px; }
+  /* ===== 顶部 ===== */
+  header { text-align: center; margin-bottom: 56px; }
+  .logo { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .logo-note { font-size: 26px; color: var(--miku-bright); text-shadow: 0 0 14px rgba(57,197,187,.8); animation: pulse 2.2s ease-in-out infinite; }
+  .logo-text { font-size: 13px; letter-spacing: 4px; color: var(--muted); text-transform: uppercase; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .55; } }
+  header h1 {
+    font-size: 44px; font-weight: 800; letter-spacing: 2px;
+    background: linear-gradient(135deg, var(--miku-bright), var(--miku) 55%, var(--pink));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 30px rgba(57,197,187,.25);
+  }
+  header .sub { color: var(--muted); margin-top: 12px; font-size: 16px; }
+  .badge {
+    display: inline-block; margin-top: 16px; padding: 4px 16px;
+    border: 1px solid var(--border); border-radius: 999px;
+    color: var(--miku-bright); font-size: 13px; background: rgba(57,197,187,.07);
+    box-shadow: 0 0 12px rgba(57,197,187,.15);
+  }
+  .stats { display: flex; justify-content: center; gap: 44px; margin: 36px 0 8px; }
   .stat { text-align: center; }
-  .stat b { display: block; font-size: 30px; color: var(--accent); }
+  .stat b { display: block; font-size: 30px; color: var(--miku-bright); text-shadow: 0 0 16px rgba(57,197,187,.5); }
   .stat span { font-size: 13px; color: var(--muted); }
 
-  .about { background: linear-gradient(135deg, rgba(124,108,255,.08), rgba(76,201,240,.06)); border: 1px solid var(--border); border-radius: 16px; padding: 28px 32px; margin-bottom: 48px; }
-  .about h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; color: var(--accent2); }
-  .about p { font-size: 14.5px; color: var(--text); margin-bottom: 12px; }
+  /* ===== 我的思考 ===== */
+  .about {
+    position: relative;
+    background: linear-gradient(135deg, rgba(57,197,187,.10), rgba(255,158,199,.05));
+    border: 1px solid var(--border);
+    border-radius: 16px; padding: 28px 32px; margin-bottom: 48px;
+    box-shadow: 0 0 24px rgba(57,197,187,.08);
+  }
+  .about::before {
+    content: "♪"; position: absolute; right: 18px; top: -8px;
+    font-size: 44px; color: rgba(57,197,187,.18);
+  }
+  .about h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; color: var(--miku-bright); }
+  .about p { font-size: 14.5px; margin-bottom: 12px; }
   .about .sign { text-align: right; color: var(--muted); font-size: 13px; margin-top: 4px; }
 
+  /* ===== 分区与卡片 ===== */
   .section { margin-top: 40px; }
-  .section h2 { font-size: 18px; font-weight: 700; margin-bottom: 16px; padding-left: 12px; border-left: 4px solid var(--accent); }
+  .section h2 {
+    font-size: 18px; font-weight: 700; margin-bottom: 16px;
+    padding-left: 12px; border-left: 4px solid var(--miku);
+  }
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
-  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; text-decoration: none; color: var(--text); transition: transform .15s, border-color .15s; display: block; }
-  .card:hover { transform: translateY(-3px); border-color: var(--accent); }
-  .card h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 18px 20px; text-decoration: none; color: var(--text);
+    transition: transform .15s, border-color .15s, box-shadow .15s; display: block;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    border-color: var(--miku);
+    box-shadow: 0 0 20px rgba(57,197,187,.25);
+  }
+  .card h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; color: var(--miku-bright); }
   .card p { font-size: 13px; color: var(--muted); }
   .tag { display: inline-block; font-size: 11px; padding: 1px 8px; border-radius: 999px; margin-bottom: 8px; }
-  .t-blue { background: rgba(108,140,255,.15); color: #9db4ff; }
-  .t-green { background: rgba(74,222,128,.12); color: #6ee7a0; }
-  .t-yellow { background: rgba(251,191,36,.12); color: #fcd34d; }
-  .t-red { background: rgba(248,113,113,.12); color: #fca5a5; }
-  .t-purple { background: rgba(167,139,250,.12); color: #c4b5fd; }
+  .t-miku { background: rgba(57,197,187,.14); color: var(--miku-bright); }
+  .t-pink { background: rgba(255,158,199,.14); color: var(--pink); }
+  .t-gray { background: rgba(127,168,165,.14); color: var(--muted); }
 
   footer { margin-top: 64px; text-align: center; color: var(--muted); font-size: 13px; }
-  footer a { color: var(--accent); text-decoration: none; }
+  footer a { color: var(--miku-bright); text-decoration: none; }
+  footer .miku-line { margin-top: 14px; letter-spacing: 2px; color: rgba(57,197,187,.5); font-size: 18px; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
     <div class="logo">
-      <span class="logo-dot"></span>
+      <span class="logo-note">♪</span>
       <span class="logo-text">OBI · Skill Hub</span>
+      <span class="logo-note">♫</span>
     </div>
     <h1>我的 AI 技能库</h1>
-    <p>12 个常用思考框架 · 五大场景：问清问题 / 学习 / 解决问题 / 决策 / 认识自己</p>
+    <p class="sub">12 个常用思考框架 · 五大场景：问清问题 / 学习 / 解决问题 / 决策 / 认识自己</p>
     <span class="badge">💡 14 个技能 · 全部可直接套用</span>
     <div class="stats">
       <div class="stat"><b>5</b><span>大场景</span></div>
@@ -68,66 +119,67 @@
 
   <div class="about">
     <h2>我的思考</h2>
-    <p>AI 时代最稀缺的能力，不是记住多少知识，而是知道<strong>自己想问什么</strong>、<strong>怎么判断真假</strong>、<strong>如何做出选择</strong>。</p>
+    <p>AI 时代最稀缺的能力，不是记住多少知识，而是知道<strong style="color:var(--miku-bright)">自己想问什么</strong>、<strong style="color:var(--miku-bright)">怎么判断真假</strong>、<strong style="color:var(--miku-bright)">如何做出选择</strong>。</p>
     <p>这 12 个框架是我反复使用、真正帮我解决问题的思考方式——我把它们整理成 14 个可复用技能：</p>
     <p>面对混乱，先问清问题；面对陌生，先学会学习；面对难题，先拆解本质；面对选择，先摆全论证；面对自己，先认识自己。</p>
-    <p>Prompt 会过时，模型会迭代，但一个人<strong>怎么提问、怎么思考、怎么认识自己</strong>——这些东西永远不会过时。</p>
+    <p>Prompt 会过时，模型会迭代，但一个人<strong style="color:var(--miku-bright)">怎么提问、怎么思考、怎么认识自己</strong>——这些东西永远不会过时。</p>
     <p class="sign">—— obi_xiao</p>
   </div>
 
   <div class="section">
     <h2>🧠 核心框架</h2>
     <div class="grid">
-      <a class="card" href="skills/core-framework/SKILL.html"><span class="tag t-purple">启动协议</span><h3>core-framework</h3><p>核心思考与工作框架——灵魂四铁律 + 12 个剖析动作，每次工作前先激活。</p></a>
-      <a class="card" href="skills/prompt-dozen/SKILL.html"><span class="tag t-purple">模板库</span><h3>prompt-dozen</h3><p>12 个常用文字提示词模板合集，五大场景全覆盖，复制即用。</p></a>
+      <a class="card" href="skills/core-framework/SKILL.html"><span class="tag t-miku">启动协议</span><h3>core-framework</h3><p>核心思考与工作框架——灵魂四铁律 + 12 个剖析动作，每次工作前先激活。</p></a>
+      <a class="card" href="skills/prompt-dozen/SKILL.html"><span class="tag t-pink">模板库</span><h3>prompt-dozen</h3><p>12 个常用文字提示词模板合集，五大场景全覆盖，复制即用。</p></a>
     </div>
   </div>
 
   <div class="section">
     <h2>❓ 问清问题</h2>
     <div class="grid">
-      <a class="card" href="skills/socratic-questioning/SKILL.html"><span class="tag t-blue">澄清</span><h3>socratic-questioning</h3><p>苏格拉底式提问——最多 6 个追问，帮用户理清真正想问的问题。</p></a>
+      <a class="card" href="skills/socratic-questioning/SKILL.html"><span class="tag t-miku">澄清</span><h3>socratic-questioning</h3><p>苏格拉底式提问——最多 6 个追问，帮用户理清真正想问的问题。</p></a>
     </div>
   </div>
 
   <div class="section">
     <h2>📚 学习</h2>
     <div class="grid">
-      <a class="card" href="skills/dual-layer-explanation/SKILL.html"><span class="tag t-green">讲透</span><h3>dual-layer-explanation</h3><p>双层解释法——小白版 + 专业版双层讲透，附术语对照与自测题。</p></a>
-      <a class="card" href="skills/cross-axis-research/SKILL.html"><span class="tag t-green">研究</span><h3>cross-axis-research</h3><p>横纵分析法——纵看演化、横看竞品，半小时搞懂任何陌生领域。</p></a>
-      <a class="card" href="skills/reverse-decomposition/SKILL.html"><span class="tag t-green">拆解</span><h3>reverse-decomposition</h3><p>反向拆解——从优秀成品逆向学习其有效原因与可复用规律。</p></a>
-      <a class="card" href="skills/fact-check/SKILL.html"><span class="tag t-green">核查</span><h3>fact-check</h3><p>事实核查——拆解事实/结论/价值判断，联网核实并输出可信度评估。</p></a>
+      <a class="card" href="skills/dual-layer-explanation/SKILL.html"><span class="tag t-gray">讲透</span><h3>dual-layer-explanation</h3><p>双层解释法——小白版 + 专业版双层讲透，附术语对照与自测题。</p></a>
+      <a class="card" href="skills/cross-axis-research/SKILL.html"><span class="tag t-gray">研究</span><h3>cross-axis-research</h3><p>横纵分析法——纵看演化、横看竞品，半小时搞懂任何陌生领域。</p></a>
+      <a class="card" href="skills/reverse-decomposition/SKILL.html"><span class="tag t-gray">拆解</span><h3>reverse-decomposition</h3><p>反向拆解——从优秀成品逆向学习其有效原因与可复用规律。</p></a>
+      <a class="card" href="skills/fact-check/SKILL.html"><span class="tag t-gray">核查</span><h3>fact-check</h3><p>事实核查——拆解事实/结论/价值判断，联网核实并输出可信度评估。</p></a>
     </div>
   </div>
 
   <div class="section">
     <h2>🛠 解决问题</h2>
     <div class="grid">
-      <a class="card" href="skills/expert-panel/SKILL.html"><span class="tag t-yellow">会诊</span><h3>expert-panel</h3><p>专家会诊——3 种互补专业视角互相质疑，从分歧中找出最优方案。</p></a>
-      <a class="card" href="skills/first-principles/SKILL.html"><span class="tag t-yellow">本质</span><h3>first-principles</h3><p>第一性原理——拆回底层基本事实与约束，抛开惯例重新推导。</p></a>
-      <a class="card" href="skills/cross-domain-solution/SKILL.html"><span class="tag t-yellow">借解</span><h3>cross-domain-solution</h3><p>跨领域借解——从 3 个以上遥远领域找相似解法，翻译回当前处境。</p></a>
+      <a class="card" href="skills/expert-panel/SKILL.html"><span class="tag t-miku">会诊</span><h3>expert-panel</h3><p>专家会诊——3 种互补专业视角互相质疑，从分歧中找出最优方案。</p></a>
+      <a class="card" href="skills/first-principles/SKILL.html"><span class="tag t-miku">本质</span><h3>first-principles</h3><p>第一性原理——拆回底层基本事实与约束，抛开惯例重新推导。</p></a>
+      <a class="card" href="skills/cross-domain-solution/SKILL.html"><span class="tag t-miku">借解</span><h3>cross-domain-solution</h3><p>跨领域借解——从 3 个以上遥远领域找相似解法，翻译回当前处境。</p></a>
     </div>
   </div>
 
   <div class="section">
     <h2>⚖️ 决策</h2>
     <div class="grid">
-      <a class="card" href="skills/steelman-argument/SKILL.html"><span class="tag t-red">论证</span><h3>steelman-argument</h3><p>双向钢人论证——两个选项各自的最强论证摆全，找出关键变量。</p></a>
-      <a class="card" href="skills/minimal-experiment/SKILL.html"><span class="tag t-red">实验</span><h3>minimal-experiment</h3><p>最小实验替代空想——找出关键假设，设计低成本可逆实验。</p></a>
+      <a class="card" href="skills/steelman-argument/SKILL.html"><span class="tag t-pink">论证</span><h3>steelman-argument</h3><p>双向钢人论证——两个选项各自的最强论证摆全，找出关键变量。</p></a>
+      <a class="card" href="skills/minimal-experiment/SKILL.html"><span class="tag t-pink">实验</span><h3>minimal-experiment</h3><p>最小实验替代空想——找出关键假设，设计低成本可逆实验。</p></a>
     </div>
   </div>
 
   <div class="section">
     <h2>🧭 认识自己</h2>
     <div class="grid">
-      <a class="card" href="skills/talent-mining/SKILL.html"><span class="tag t-blue">天赋</span><h3>talent-mining</h3><p>深度天赋挖掘——基于盖洛普/心流/荣格心理学，输出万字天赋说明书。</p></a>
-      <a class="card" href="skills/life-design/SKILL.html"><span class="tag t-blue">人生</span><h3>life-design</h3><p>人生设计术——斯坦福人生设计方法，产出三个五年人生版本。</p></a>
+      <a class="card" href="skills/talent-mining/SKILL.html"><span class="tag t-gray">天赋</span><h3>talent-mining</h3><p>深度天赋挖掘——基于盖洛普/心流/荣格心理学，输出万字天赋说明书。</p></a>
+      <a class="card" href="skills/life-design/SKILL.html"><span class="tag t-gray">人生</span><h3>life-design</h3><p>人生设计术——斯坦福人生设计方法，产出三个五年人生版本。</p></a>
     </div>
   </div>
 
   <footer>
     <p>© 2026 obi_xiao · OBI Skill Hub</p>
     <p style="margin-top:8px;"><a href="https://github.com/mingxinbi112-source/OBI-xiao-skill">GitHub 仓库</a> · <a href="https://github.com/mingxinbi112-source">mingxinbi112-source</a></p>
+    <p class="miku-line">♪ 世界第一的公主殿下 ♪</p>
   </footer>
 </div>
 </body>
