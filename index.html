@@ -191,21 +191,33 @@
   resize();
   window.addEventListener('resize', resize);
 
-  // 光粒子（冷白为主 + 少量暖橙）
+  // 光粒子（不规则大小/速度/亮度，平方分布：少数大而亮、多数小而暗）
   var P = [];
+  function rnd2() { var r = Math.random(); return r * r; }   // 平方分布，偏向小值
   function spawn() {
     var ang = Math.random() * Math.PI * 2;
-    var d = Math.max(W, H) * (0.55 + Math.random() * 0.3);
+    var d = Math.max(W, H) * (0.5 + Math.random() * 0.4);
+    // 大小：0.3 ~ 3.2，平方分布让大多数是小粒子
+    var size = 0.3 + rnd2() * 2.9;
+    // 亮度：0.08 ~ 0.95，平方分布让大多数微亮、少数很亮
+    var alpha = 0.08 + rnd2() * 0.87;
+    // 速度：0.15 ~ 2.4，不均匀
+    var speed = 0.15 + rnd2() * 2.25;
+    // 颜色：大亮粒子偏暖白，小粒子偏冷白/淡蓝，少量暖橙
+    var c;
+    if (size > 1.8) c = '255,238,215';                       // 大而亮 → 暖白
+    else if (Math.random() < 0.15) c = '232,168,107';        // 少量暖橙
+    else c = '208,220,238';                                  // 冷白淡蓝
     return {
       x: cx + Math.cos(ang) * d,
       y: cy + Math.sin(ang) * d,
-      size: 0.5 + Math.random() * 1.5,
-      speed: 0.3 + Math.random() * 1.1,
-      alpha: 0.3 + Math.random() * 0.45,
-      color: Math.random() < 0.82 ? '210,220,235' : '232,168,107'
+      size: size,
+      speed: speed,
+      alpha: alpha,
+      color: c
     };
   }
-  for (var i = 0; i < 140; i++) P.push(spawn());
+  for (var i = 0; i < 150; i++) P.push(spawn());
 
   var t = 0;
   function frame() {
@@ -275,7 +287,7 @@
     ctx.stroke();
     ctx.restore();
 
-    // ===== 5. 粒子飞入视界 =====
+    // ===== 5. 粒子飞入视界（靠近变亮 + 大粒子光晕）=====
     for (var k = 0; k < P.length; k++) {
       var p = P[k];
       var dx = cx - p.x, dy = cy - p.y;
@@ -283,13 +295,24 @@
       var accel = 1 + 32 / (dist + 6);
       p.x += (dx / dist) * p.speed * accel;
       p.y += (dy / dist) * p.speed * accel;
-      p.size *= 0.9988;
+      p.size *= 0.9992;
       if (dist < R * 1.02 || p.size < 0.06) { P[k] = spawn(); continue; }
+      // 靠近视界时增亮（被吸积盘照亮）
+      var glowBoost = 1 + 2.2 * Math.max(0, 1 - dist / (R * 5));
+      var a = Math.min(1, p.alpha * glowBoost);
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(' + p.color + ',' + p.alpha + ')';
+      ctx.fillStyle = 'rgba(' + p.color + ',' + a + ')';
+      // 大粒子带柔光晕，小粒子就是纯点
+      if (p.size > 1.6) {
+        ctx.shadowColor = 'rgba(' + p.color + ',0.85)';
+        ctx.shadowBlur = p.size * 3.2;
+      } else {
+        ctx.shadowBlur = 0;
+      }
       ctx.fill();
     }
+    ctx.shadowBlur = 0;
 
     // ===== 6. 事件视界（黑球 + 边缘暖色反射，球体立体感）=====
     ctx.save();
