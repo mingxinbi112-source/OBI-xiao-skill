@@ -13,8 +13,6 @@
     --text: #f7f8f8;
     --text2: #d0d6e0;
     --text3: #8a8f98;
-    --border-subtle: rgba(255,255,255,0.05);
-    --border-std: rgba(255,255,255,0.08);
     --ember: #e8a86b;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -31,62 +29,67 @@
     background-position: center;
   }
 
-  /* 黑洞 canvas 在最上层，永远不被遮挡 */
+  /* 黑洞 canvas 在最上层 */
   #bh { position: fixed; inset: 0; z-index: 3; pointer-events: none; }
 
   .star { position: fixed; border-radius: 50%; background: #dfe4ee; pointer-events: none; z-index: 1; animation: twinkle ease-in-out infinite; }
   @keyframes twinkle { 0%,100% { opacity: .08; transform: scale(.7); } 50% { opacity: .45; transform: scale(1.1); } }
 
-  /* ===== 环绕舞台 ===== */
+  /* ===== 舞台：上中下三段 ===== */
   .stage {
     position: fixed; inset: 0; z-index: 2; pointer-events: none;
-    display: flex; flex-direction: column; justify-content: space-between;
+    display: flex; flex-direction: column;
     padding: 4vh 0 3vh;
   }
 
-  /* 顶部：标题 + 副标题 */
+  /* 顶部：标题 */
   .top { text-align: center; padding: 0 6vw; }
   .top h1 { font-size: 34px; font-weight: 800; letter-spacing: 3px; color: var(--text); text-shadow: 0 0 30px rgba(0,0,0,.8); }
   .top .sub { color: var(--text3); margin-top: 6px; font-size: 12px; letter-spacing: 2px; }
 
-  /* 中部：技能环绕黑洞 */
-  .orbit { position: relative; flex: 1; pointer-events: none; }
+  /* 中部：左右两翼，中间留空给黑洞 */
+  .mid { flex: 1; display: flex; align-items: center; justify-content: space-between; padding: 2vh 5vw; }
+  .wing {
+    width: 240px; pointer-events: auto;
+    display: flex; flex-direction: column; justify-content: center;
+    gap: 10px;
+  }
+  .wing.left { text-align: center; }
+  .wing.right { text-align: center; }
 
-  /* 技能条目：JS 绝对定位在黑洞四周椭圆轨道上，朝黑洞倾斜 */
+  /* 技能条目：居中对齐 */
   .skill {
-    position: absolute;
     display: block; text-decoration: none;
-    padding: 6px 12px;
+    padding: 6px 10px;
     color: var(--text2);
     border-radius: 6px;
     border: 1px solid transparent;
-    pointer-events: auto;
-    white-space: nowrap;
-    transition: transform .35s cubic-bezier(.22,1.4,.36,1), color .25s, background .25s, border-color .25s;
+    text-align: center;
+    transition: transform .3s cubic-bezier(.22,1.4,.36,1), color .25s, background .25s, border-color .25s;
   }
   .skill:hover {
     color: var(--ember);
     background: rgba(232,168,107,0.06);
     border-color: rgba(232,168,107,0.35);
-    transform: scale(1.12) !important;
-    z-index: 5;
+    transform: scale(1.06);
   }
   .skill .num { display: block; font-size: 9px; color: var(--ember); letter-spacing: 1px; opacity: .8; }
   .skill h3 { font-size: 12.5px; font-weight: 700; color: inherit; line-height: 1.35; }
-  .skill p { font-size: 9.5px; color: var(--text3); line-height: 1.4; margin-top: 1px; max-width: 150px; white-space: normal; }
+  .skill p { font-size: 9.5px; color: var(--text3); line-height: 1.4; margin-top: 1px; }
 
   /* 底部：我的思考 + footer */
   .bottom { text-align: center; padding: 0 8vw; }
   .bottom .about { max-width: 640px; margin: 0 auto; color: var(--text2); font-size: 12.5px; line-height: 1.8; }
   .bottom .about strong { color: var(--ember); }
   .bottom .sign { margin-top: 8px; color: var(--text3); font-size: 11px; }
-  footer { margin-top: 12px; color: var(--text3); font-size: 11px; }
-  footer a { color: var(--text2); text-decoration: none; border-bottom: 1px solid var(--border-std); }
+  footer { margin-top: 10px; color: var(--text3); font-size: 11px; }
+  footer a { color: var(--text2); text-decoration: none; border-bottom: 1px solid var(--border); }
 
   @media (max-height: 640px) {
-    .skill h3 { font-size: 12px; }
     .skill p { display: none; }
-    .top h1 { font-size: 26px; }
+    .skill h3 { font-size: 11px; }
+    .wing { gap: 6px; }
+    .top h1 { font-size: 24px; }
     .bottom .about { font-size: 11px; }
   }
 </style>
@@ -113,7 +116,29 @@
       <p class="sub">12 个常用思考框架 · 五大场景</p>
     </div>
 
-    <div class="orbit" id="orbit"></div>
+    <div class="mid">
+      <!-- 左翼 -->
+      <div class="wing left">
+        <a class="skill" href="skills/core-framework/SKILL.html"><span class="num">01</span><h3>core-framework</h3><p>核心思考与工作框架</p></a>
+        <a class="skill" href="skills/prompt-dozen/SKILL.html"><span class="num">02</span><h3>prompt-dozen</h3><p>12个提示词模板合集</p></a>
+        <a class="skill" href="skills/socratic-questioning/SKILL.html"><span class="num">03</span><h3>socratic-questioning</h3><p>苏格拉底式提问</p></a>
+        <a class="skill" href="skills/dual-layer-explanation/SKILL.html"><span class="num">04</span><h3>dual-layer-explanation</h3><p>双层解释法</p></a>
+        <a class="skill" href="skills/cross-axis-research/SKILL.html"><span class="num">05</span><h3>cross-axis-research</h3><p>横纵分析法</p></a>
+        <a class="skill" href="skills/reverse-decomposition/SKILL.html"><span class="num">06</span><h3>reverse-decomposition</h3><p>反向拆解</p></a>
+        <a class="skill" href="skills/fact-check/SKILL.html"><span class="num">07</span><h3>fact-check</h3><p>事实核查</p></a>
+      </div>
+
+      <!-- 右翼 -->
+      <div class="wing right">
+        <a class="skill" href="skills/expert-panel/SKILL.html"><span class="num">08</span><h3>expert-panel</h3><p>专家会诊</p></a>
+        <a class="skill" href="skills/first-principles/SKILL.html"><span class="num">09</span><h3>first-principles</h3><p>第一性原理</p></a>
+        <a class="skill" href="skills/cross-domain-solution/SKILL.html"><span class="num">10</span><h3>cross-domain-solution</h3><p>跨领域借解</p></a>
+        <a class="skill" href="skills/steelman-argument/SKILL.html"><span class="num">11</span><h3>steelman-argument</h3><p>双向钢人论证</p></a>
+        <a class="skill" href="skills/minimal-experiment/SKILL.html"><span class="num">12</span><h3>minimal-experiment</h3><p>最小实验</p></a>
+        <a class="skill" href="skills/talent-mining/SKILL.html"><span class="num">13</span><h3>talent-mining</h3><p>深度天赋挖掘</p></a>
+        <a class="skill" href="skills/life-design/SKILL.html"><span class="num">14</span><h3>life-design</h3><p>人生设计术</p></a>
+      </div>
+    </div>
 
     <div class="bottom">
       <div class="about">
@@ -143,61 +168,7 @@
   resize();
   window.addEventListener('resize', resize);
 
-  // ===== 技能环绕布局 =====
-  // 每个技能的角度（弧度，绕黑洞）、距离（相对半径倍数）、倾斜方向
-  var SKILLS = [
-    { num: '01', name: 'core-framework',        desc: '核心思考与工作框架', url: 'skills/core-framework/SKILL.html',        ang: -2.55, dist: 1.00 },
-    { num: '02', name: 'prompt-dozen',           desc: '12个提示词模板合集',  url: 'skills/prompt-dozen/SKILL.html',           ang: -2.15, dist: 0.88 },
-    { num: '03', name: 'socratic-questioning',   desc: '苏格拉底式提问',       url: 'skills/socratic-questioning/SKILL.html',   ang: -1.75, dist: 0.78 },
-    { num: '04', name: 'dual-layer-explanation', desc: '双层解释法',           url: 'skills/dual-layer-explanation/SKILL.html', ang: -1.30, dist: 0.92 },
-    { num: '05', name: 'cross-axis-research',    desc: '横纵分析法',           url: 'skills/cross-axis-research/SKILL.html',    ang: -0.85, dist: 0.80 },
-    { num: '06', name: 'reverse-decomposition',  desc: '反向拆解',             url: 'skills/reverse-decomposition/SKILL.html',  ang: -0.45, dist: 0.95 },
-    { num: '07', name: 'fact-check',             desc: '事实核查',             url: 'skills/fact-check/SKILL.html',             ang: -0.10, dist: 0.76 },
-    { num: '08', name: 'expert-panel',           desc: '专家会诊',             url: 'skills/expert-panel/SKILL.html',           ang:  0.28, dist: 0.90 },
-    { num: '09', name: 'first-principles',       desc: '第一性原理',           url: 'skills/first-principles/SKILL.html',       ang:  0.66, dist: 0.78 },
-    { num: '10', name: 'cross-domain-solution',  desc: '跨领域借解',           url: 'skills/cross-domain-solution/SKILL.html',  ang:  1.02, dist: 0.94 },
-    { num: '11', name: 'steelman-argument',      desc: '双向钢人论证',         url: 'skills/steelman-argument/SKILL.html',      ang:  1.38, dist: 0.82 },
-    { num: '12', name: 'minimal-experiment',     desc: '最小实验',             url: 'skills/minimal-experiment/SKILL.html',     ang:  1.72, dist: 0.96 },
-    { num: '13', name: 'talent-mining',          desc: '深度天赋挖掘',         url: 'skills/talent-mining/SKILL.html',          ang:  2.10, dist: 0.80 },
-    { num: '14', name: 'life-design',            desc: '人生设计术',           url: 'skills/life-design/SKILL.html',            ang:  2.48, dist: 0.90 }
-  ];
-
-  var orbit = document.getElementById('orbit');
-  var skillEls = [];
-  SKILLS.forEach(function (s) {
-    var a = document.createElement('a');
-    a.className = 'skill';
-    a.href = s.url;
-    a.innerHTML = '<span class="num">' + s.num + '</span><h3>' + s.name + '</h3><p>' + s.desc + '</p>';
-    orbit.appendChild(a);
-    skillEls.push({ el: a, data: s });
-  });
-
-  function layoutSkills() {
-    var cxp = W / 2;
-    var cyp = H * 0.5;
-    // 椭圆半轴（避让黑洞，黑洞吸积盘约 3.1R）
-    var rx = Math.min(W * 0.46, 620);
-    var ry = Math.min(H * 0.40, 380);
-    // 底部留白给介绍，顶部留白给标题 → 椭圆整体上移一点，但中心仍是黑洞
-    skillEls.forEach(function (item) {
-      var s = item.data;
-      var x = cxp + Math.cos(s.ang) * rx * s.dist;
-      var y = cyp + Math.sin(s.ang) * ry * s.dist;
-      // 朝向黑洞的倾斜：右侧技能向左倾（负），左侧向右倾（正）；上下技能分别朝黑洞倾
-      var tilt = -Math.sin(s.ang) * 8 + (Math.random() - 0.5) * 3;
-      // 让卡片中心对齐到目标点
-      item.el.style.left = x + 'px';
-      item.el.style.top = y + 'px';
-      item.el.style.transform = 'translate(-50%, -50%) rotate(' + tilt.toFixed(1) + 'deg)';
-      // 左右侧文字对齐
-      item.el.style.textAlign = (Math.cos(s.ang) >= 0) ? 'left' : 'right';
-    });
-  }
-  layoutSkills();
-  window.addEventListener('resize', function () { resize(); layoutSkills(); });
-
-  // 光粒子（不规则大小/速度/亮度，平方分布：少数大而亮、多数小而暗）
+  // 光粒子（不规则大小/速度/亮度）
   var P = [];
   function rnd2() { var r = Math.random(); return r * r; }
   function spawn() {
@@ -222,7 +193,7 @@
     var tilt = -0.25;
     var rot = t * 0.0025;
 
-    // 1. 引力透镜光环
+    // 1. 引力透镜光环（上下对称光晕）
     ctx.save();
     ctx.translate(cx, cy);
     var ringGrad = ctx.createRadialGradient(0, 0, R * 1.28, 0, 0, R * 1.72);
@@ -237,7 +208,7 @@
     ctx.fill();
     ctx.restore();
 
-    // 2. 吸积盘（3D 椭圆）
+    // 2. 吸积盘（均匀暖色，无多普勒暗影）
     ctx.save();
     ctx.translate(cx, cy);
     ctx.rotate(tilt + rot);
@@ -254,22 +225,7 @@
     ctx.fill();
     ctx.restore();
 
-    // 3. 多普勒明暗
-    ctx.save();
-    ctx.translate(cx, cy);
-    ctx.scale(1, 0.42);
-    var dop = ctx.createLinearGradient(-R * 3.1, 0, R * 3.1, 0);
-    dop.addColorStop(0.00, 'rgba(0,0,0,0.00)');
-    dop.addColorStop(0.50, 'rgba(0,0,0,0.20)');
-    dop.addColorStop(0.80, 'rgba(0,0,0,0.42)');
-    dop.addColorStop(1.00, 'rgba(0,0,0,0.55)');
-    ctx.fillStyle = dop;
-    ctx.beginPath();
-    ctx.arc(0, 0, R * 3.1, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
-
-    // 4. 光子环
+    // 3. 光子环
     var photon = 0.45 + 0.15 * Math.sin(t * 0.02);
     ctx.save();
     ctx.beginPath();
@@ -281,7 +237,7 @@
     ctx.stroke();
     ctx.restore();
 
-    // 5. 粒子飞入视界
+    // 4. 粒子飞入视界
     for (var k = 0; k < P.length; k++) {
       var p = P[k];
       var dx = cx - p.x, dy = cy - p.y;
@@ -306,7 +262,7 @@
     }
     ctx.shadowBlur = 0;
 
-    // 6. 事件视界（球体）
+    // 5. 事件视界（球体）
     ctx.save();
     var bhGrad = ctx.createRadialGradient(cx - R * 0.35, cy - R * 0.35, R * 0.1, cx, cy, R);
     bhGrad.addColorStop(0.00, '#000000');
