@@ -48,8 +48,16 @@
 
   /* ===== 我的思考 ===== */
   .about {
-    background: var(--panel); border: 1px solid var(--border); border-radius: 6px;
+    position: relative;
+    background: linear-gradient(160deg, rgba(20,26,40,.72), rgba(10,13,20,.82));
+    border: 1px solid var(--border); border-radius: 10px;
     padding: 26px 30px; margin-bottom: 44px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 12px 40px rgba(0,0,0,.45);
+  }
+  .about::before {
+    content: ""; position: absolute; left: 0; top: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(232,168,107,.6), transparent);
   }
   .about h2 { font-size: 15px; font-weight: 700; letter-spacing: 2px; margin-bottom: 14px; color: var(--text); }
   .about p { font-size: 14px; margin-bottom: 12px; color: #c9c7c1; }
@@ -61,13 +69,32 @@
     font-size: 13px; font-weight: 700; letter-spacing: 3px; margin-bottom: 16px;
     color: var(--muted); text-transform: uppercase;
   }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 12px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 14px; }
   .card {
-    background: var(--panel); border: 1px solid var(--border); border-radius: 6px;
+    position: relative;
+    background: linear-gradient(160deg, rgba(18,23,36,.66), rgba(9,12,18,.8));
+    border: 1px solid var(--border); border-radius: 10px;
     padding: 16px 18px; text-decoration: none; color: var(--text); display: block;
-    transition: border-color .15s, background .15s;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 18px rgba(0,0,0,.35);
+    transition: transform .5s cubic-bezier(.22,1.4,.36,1), border-color .3s, box-shadow .3s, background .3s;
   }
-  .card:hover { border-color: #3a4356; background: #0d1119; }
+  .card::before {
+    content: ""; position: absolute; left: 0; top: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(232,168,107,.55), transparent);
+    opacity: 0; transition: opacity .3s;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(232,168,107,.45);
+    box-shadow: 0 14px 34px rgba(0,0,0,.5), 0 0 22px rgba(232,168,107,.10);
+    background: linear-gradient(160deg, rgba(24,30,46,.72), rgba(11,15,23,.82));
+  }
+  .card:hover::before { opacity: 1; }
+  .card:active {
+    transform: translateY(-1px) scale(.965);
+    transition-duration: .08s;
+  }
   .card h3 { font-size: 15px; font-weight: 700; margin-bottom: 5px; color: var(--text); }
   .card p { font-size: 12.5px; color: var(--muted); }
   .card .idx { font-size: 11px; color: var(--ember); letter-spacing: 1px; margin-bottom: 8px; display: block; }
@@ -200,10 +227,10 @@
     t++;
     ctx.clearRect(0, 0, W, H);
 
-    // 1. 倾斜椭圆吸积盘（暖色，真实黑洞质感，非圆形）
+    // 1. 倾斜椭圆吸积盘（暖色，真实黑洞质感）
     ctx.save();
     ctx.translate(cx, cy);
-    ctx.rotate(-0.28 + t * 0.0022);   // 固定倾角 + 缓慢旋转
+    ctx.rotate(-0.24 + t * 0.0022);   // 固定倾角 + 缓慢旋转
     ctx.scale(1, 0.30);                // 压成扁平盘
     var g = ctx.createRadialGradient(0, 0, R * 0.9, 0, 0, R * 3.6);
     g.addColorStop(0.00, 'rgba(255,250,242,0.85)');  // 内圈白热
@@ -217,19 +244,19 @@
     ctx.fill();
     ctx.restore();
 
-    // 2. 引力透镜光弧（上下弧，暖色，弱化发光）
+    // 2. 引力透镜光环（正圆，独立于吸积盘倾角，视界上下露出弧）
     ctx.save();
     ctx.translate(cx, cy);
-    ctx.rotate(-0.28 + t * 0.0022);
-    ctx.lineWidth = R * 0.035;
-    ctx.lineCap = 'round';
-    ctx.strokeStyle = 'rgba(242,229,207,0.35)';
+    var rg = ctx.createRadialGradient(0, 0, R * 1.25, 0, 0, R * 1.6);
+    rg.addColorStop(0.00, 'rgba(255,244,224,0)');
+    rg.addColorStop(0.55, 'rgba(242,229,207,0.0)');
+    rg.addColorStop(0.82, 'rgba(242,222,190,0.30)');
+    rg.addColorStop(0.92, 'rgba(232,168,107,0.22)');
+    rg.addColorStop(1.00, 'rgba(232,168,107,0)');
+    ctx.fillStyle = rg;
     ctx.beginPath();
-    ctx.ellipse(0, 0, R * 1.85, R * 1.85, 0, Math.PI * 1.03, Math.PI * 1.27);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.ellipse(0, 0, R * 1.85, R * 1.85, 0, Math.PI * 1.73, Math.PI * 1.97);
-    ctx.stroke();
+    ctx.arc(0, 0, R * 1.6, 0, Math.PI * 2);
+    ctx.fill();
     ctx.restore();
 
     // 3. 粒子飞入视界
