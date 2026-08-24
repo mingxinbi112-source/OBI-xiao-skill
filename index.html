@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Skills · 我的 AI 技能库</title>
+<style>
+  :root {
+    --bg: #0f1117; --card: #1a1d27; --border: #2a2f3d;
+    --text: #e8eaf0; --muted: #9aa0b0; --accent: #6c8cff;
+    --green: #4ade80; --yellow: #fbbf24; --red: #f87171;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; line-height: 1.7; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 48px 24px 80px; }
+  header { text-align: center; margin-bottom: 48px; }
+  header h1 { font-size: 40px; font-weight: 800; letter-spacing: 1px; background: linear-gradient(135deg, #6c8cff, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  header p { color: var(--muted); margin-top: 12px; font-size: 16px; }
+  .badge { display: inline-block; margin-top: 16px; padding: 4px 14px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); font-size: 13px; background: var(--card); }
+  .stats { display: flex; justify-content: center; gap: 32px; margin: 32px 0 8px; }
+  .stat { text-align: center; }
+  .stat b { display: block; font-size: 28px; color: var(--accent); }
+  .stat span { font-size: 13px; color: var(--muted); }
+  .section { margin-top: 40px; }
+  .section h2 { font-size: 18px; font-weight: 700; margin-bottom: 16px; padding-left: 12px; border-left: 4px solid var(--accent); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; text-decoration: none; color: var(--text); transition: transform .15s, border-color .15s; display: block; }
+  .card:hover { transform: translateY(-3px); border-color: var(--accent); }
+  .card h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+  .card p { font-size: 13px; color: var(--muted); }
+  .tag { display: inline-block; font-size: 11px; padding: 1px 8px; border-radius: 999px; margin-bottom: 8px; }
+  .t-blue { background: rgba(108,140,255,.15); color: #9db4ff; }
+  .t-green { background: rgba(74,222,128,.12); color: #6ee7a0; }
+  .t-yellow { background: rgba(251,191,36,.12); color: #fcd34d; }
+  .t-red { background: rgba(248,113,113,.12); color: #fca5a5; }
+  .t-purple { background: rgba(167,139,250,.12); color: #c4b5fd; }
+  footer { margin-top: 64px; text-align: center; color: var(--muted); font-size: 13px; }
+  footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>My Skills · 我的 AI 技能库</h1>
+    <p>12 个常用 Prompt 技能化 · 五大场景：问清问题 / 学习 / 解决问题 / 决策 / 认识自己</p>
+    <span class="badge">💡 14 个技能 · 全部可直接套用</span>
+    <div class="stats">
+      <div class="stat"><b>5</b><span>大场景</span></div>
+      <div class="stat"><b>12</b><span>核心 Prompt</span></div>
+      <div class="stat"><b>14</b><span>可复用技能</span></div>
+    </div>
+  </header>
+
+  <div class="section">
+    <h2>🧠 核心框架</h2>
+    <div class="grid">
+      <a class="card" href="skills/core-framework/SKILL.md"><span class="tag t-purple">启动协议</span><h3>core-framework</h3><p>核心思考与工作框架——灵魂四铁律 + 12 个剖析动作，每次工作前先激活。</p></a>
+      <a class="card" href="skills/prompt-dozen/SKILL.md"><span class="tag t-purple">模板库</span><h3>prompt-dozen</h3><p>12 个常用文字提示词模板合集，五大场景全覆盖，复制即用。</p></a>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>❓ 问清问题</h2>
+    <div class="grid">
+      <a class="card" href="skills/socratic-questioning/SKILL.md"><span class="tag t-blue">澄清</span><h3>socratic-questioning</h3><p>苏格拉底式提问——最多 6 个追问，帮用户理清真正想问的问题。</p></a>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>📚 学习</h2>
+    <div class="grid">
+      <a class="card" href="skills/dual-layer-explanation/SKILL.md"><span class="tag t-green">讲透</span><h3>dual-layer-explanation</h3><p>双层解释法——小白版 + 专业版双层讲透，附术语对照与自测题。</p></a>
+      <a class="card" href="skills/cross-axis-research/SKILL.md"><span class="tag t-green">研究</span><h3>cross-axis-research</h3><p>横纵分析法——纵看演化、横看竞品，半小时搞懂任何陌生领域。</p></a>
+      <a class="card" href="skills/reverse-decomposition/SKILL.md"><span class="tag t-green">拆解</span><h3>reverse-decomposition</h3><p>反向拆解——从优秀成品逆向学习其有效原因与可复用规律。</p></a>
+      <a class="card" href="skills/fact-check/SKILL.md"><span class="tag t-green">核查</span><h3>fact-check</h3><p>事实核查——拆解事实/结论/价值判断，联网核实并输出可信度评估。</p></a>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>🛠 解决问题</h2>
+    <div class="grid">
+      <a class="card" href="skills/expert-panel/SKILL.md"><span class="tag t-yellow">会诊</span><h3>expert-panel</h3><p>专家会诊——3 种互补专业视角互相质疑，从分歧中找出最优方案。</p></a>
+      <a class="card" href="skills/first-principles/SKILL.md"><span class="tag t-yellow">本质</span><h3>first-principles</h3><p>第一性原理——拆回底层基本事实与约束，抛开惯例重新推导。</p></a>
+      <a class="card" href="skills/cross-domain-solution/SKILL.md"><span class="tag t-yellow">借解</span><h3>cross-domain-solution</h3><p>跨领域借解——从 3 个以上遥远领域找相似解法，翻译回当前处境。</p></a>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>⚖️ 决策</h2>
+    <div class="grid">
+      <a class="card" href="skills/steelman-argument/SKILL.md"><span class="tag t-red">论证</span><h3>steelman-argument</h3><p>双向钢人论证——两个选项各自的最强论证摆全，找出关键变量。</p></a>
+      <a class="card" href="skills/minimal-experiment/SKILL.md"><span class="tag t-red">实验</span><h3>minimal-experiment</h3><p>最小实验替代空想——找出关键假设，设计低成本可逆实验。</p></a>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>🧭 认识自己</h2>
+    <div class="grid">
+      <a class="card" href="skills/talent-mining/SKILL.md"><span class="tag t-blue">天赋</span><h3>talent-mining</h3><p>深度天赋挖掘——基于盖洛普/心流/荣格心理学，输出万字天赋说明书。</p></a>
+      <a class="card" href="skills/life-design/SKILL.md"><span class="tag t-blue">人生</span><h3>life-design</h3><p>人生设计术——斯坦福人生设计方法，产出三个五年人生版本。</p></a>
+    </div>
+  </div>
+
+  <footer>
+    <p>内容整理自卡兹克《12 个我最常用的 Prompt》 · 作者：<a href="https://github.com/mingxinbi112-source">mingxinbi112-source</a></p>
+    <p style="margin-top:8px;"><a href="https://github.com/mingxinbi112-source/OBI-xiao-skill">查看 GitHub 仓库</a></p>
+  </footer>
+</div>
+</body>
+</html>
