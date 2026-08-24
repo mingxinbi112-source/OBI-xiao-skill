@@ -9,13 +9,14 @@
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #04060c;
-    --panel: #0a0d14;
-    --border: #1c2230;
-    --text: #e8e6e0;
-    --muted: #8a8f98;
-    --warm: #f2e5cf;      /* 吸积盘暖白 */
-    --ember: #e8a86b;     /* 吸积盘暖橙 */
+    --bg: #08090a;
+    --panel: #0f1011;
+    --text: #f7f8f8;
+    --text2: #d0d6e0;
+    --text3: #8a8f98;
+    --border-subtle: rgba(255,255,255,0.05);
+    --border-std: rgba(255,255,255,0.08);
+    --ember: #e8a86b;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -27,80 +28,65 @@
     overflow-x: hidden;
     background-color: var(--bg);
     background-image:
-      linear-gradient(180deg, rgba(4,6,12,.82), rgba(4,6,12,.94) 70%, rgba(4,6,12,1)),
+      linear-gradient(180deg, rgba(8,9,10,.86), rgba(8,9,10,.95) 70%, rgba(8,9,10,1)),
       url('assets/bg-stars.jpg');
     background-size: cover;
     background-position: center top;
     background-attachment: fixed;
   }
-  .wrap { max-width: 920px; margin: 0 auto; padding: 44px 24px 72px; position: relative; z-index: 2; }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 44px 28px 72px; position: relative; z-index: 2; }
 
   #bh { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 
   .star { position: fixed; border-radius: 50%; background: #dfe4ee; pointer-events: none; z-index: 1; animation: twinkle ease-in-out infinite; }
-  @keyframes twinkle { 0%,100% { opacity: .08; transform: scale(.7); } 50% { opacity: .5; transform: scale(1.1); } }
+  @keyframes twinkle { 0%,100% { opacity: .08; transform: scale(.7); } 50% { opacity: .45; transform: scale(1.1); } }
 
   /* ===== 顶部 ===== */
-  header { text-align: center; margin-bottom: 44px; }
-  header h1 { font-size: 42px; font-weight: 800; letter-spacing: 3px; color: var(--text); }
-  header .sub { color: var(--muted); margin-top: 10px; font-size: 14px; letter-spacing: 1px; }
-  .rule { width: 44px; height: 2px; background: var(--ember); margin: 18px auto 0; }
+  header { text-align: center; margin-bottom: 52px; }
+  header h1 { font-size: 38px; font-weight: 800; letter-spacing: 2px; color: var(--text); }
+  header .sub { color: var(--text3); margin-top: 8px; font-size: 13px; letter-spacing: 1px; }
 
   /* ===== 我的思考 ===== */
-  .about {
-    position: relative;
-    background: linear-gradient(160deg, rgba(20,26,40,.72), rgba(10,13,20,.82));
-    border: 1px solid var(--border); border-radius: 10px;
-    padding: 26px 30px; margin-bottom: 44px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 12px 40px rgba(0,0,0,.45);
-  }
-  .about::before {
-    content: ""; position: absolute; left: 0; top: 0; right: 0; height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(232,168,107,.6), transparent);
-  }
-  .about h2 { font-size: 15px; font-weight: 700; letter-spacing: 2px; margin-bottom: 14px; color: var(--text); }
-  .about p { font-size: 14px; margin-bottom: 12px; color: #c9c7c1; }
-  .about .sign { text-align: right; color: var(--muted); font-size: 12px; margin-top: 4px; }
+  .about { margin-bottom: 52px; border-bottom: 1px solid var(--border-std); padding-bottom: 36px; }
+  .about h2 { font-size: 13px; font-weight: 700; letter-spacing: 3px; margin-bottom: 16px; color: var(--text3); }
+  .about p { font-size: 14.5px; margin-bottom: 12px; color: var(--text2); }
+  .about .sign { text-align: right; color: var(--text3); font-size: 12px; margin-top: 4px; }
 
-  /* ===== 分区与卡片 ===== */
-  .section { margin-top: 38px; }
+  /* ===== 分区与列表（去盒子化） ===== */
+  .section { margin-top: 40px; }
   .section h2 {
-    font-size: 13px; font-weight: 700; letter-spacing: 3px; margin-bottom: 16px;
-    color: var(--muted); text-transform: uppercase;
+    font-size: 12px; font-weight: 700; letter-spacing: 3px; margin-bottom: 8px;
+    color: var(--text3); text-transform: uppercase;
   }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 14px; }
-  .card {
-    position: relative;
-    background: linear-gradient(160deg, rgba(18,23,36,.66), rgba(9,12,18,.8));
-    border: 1px solid var(--border); border-radius: 10px;
-    padding: 16px 18px; text-decoration: none; color: var(--text); display: block;
-    backdrop-filter: blur(8px);
-    box-shadow: 0 4px 18px rgba(0,0,0,.35);
-    transition: transform .5s cubic-bezier(.22,1.4,.36,1), border-color .3s, box-shadow .3s, background .3s;
+  .list { border-top: 1px solid var(--border-subtle); }
+  .item {
+    display: flex; align-items: baseline; gap: 20px;
+    padding: 15px 6px;
+    border-bottom: 1px solid var(--border-subtle);
+    text-decoration: none; color: var(--text);
+    transition: background .2s, padding-left .2s;
   }
-  .card::before {
-    content: ""; position: absolute; left: 0; top: 0; right: 0; height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(232,168,107,.55), transparent);
-    opacity: 0; transition: opacity .3s;
+  .item:hover {
+    background: rgba(255,255,255,0.02);
+    padding-left: 12px;
   }
-  .card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(232,168,107,.45);
-    box-shadow: 0 14px 34px rgba(0,0,0,.5), 0 0 22px rgba(232,168,107,.10);
-    background: linear-gradient(160deg, rgba(24,30,46,.72), rgba(11,15,23,.82));
+  .item .num {
+    font-size: 12px; color: var(--text3); min-width: 26px;
+    font-variant-numeric: tabular-nums; transition: color .2s;
   }
-  .card:hover::before { opacity: 1; }
-  .card:active {
-    transform: translateY(-1px) scale(.965);
-    transition-duration: .08s;
+  .item:hover .num { color: var(--ember); }
+  .item .body { flex: 1; }
+  .item h3 {
+    font-size: 15px; font-weight: 600; margin-bottom: 2px; color: var(--text);
+    transition: color .2s;
   }
-  .card h3 { font-size: 15px; font-weight: 700; margin-bottom: 5px; color: var(--text); }
-  .card p { font-size: 12.5px; color: var(--muted); }
-  .card .idx { font-size: 11px; color: var(--ember); letter-spacing: 1px; margin-bottom: 8px; display: block; }
+  .item:hover h3 { color: var(--ember); }
+  .item p { font-size: 12.5px; color: var(--text3); }
+  .item .arrow { color: var(--text3); opacity: 0; transition: opacity .2s, transform .2s; font-size: 14px; }
+  .item:hover .arrow { opacity: 1; transform: translateX(3px); }
 
-  footer { margin-top: 60px; text-align: center; color: var(--muted); font-size: 12px; }
-  footer a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border); }
+  footer { margin-top: 64px; text-align: center; color: var(--text3); font-size: 12px; }
+  footer a { color: var(--text2); text-decoration: none; border-bottom: 1px solid var(--border-std); }
 </style>
 </head>
 <body>
@@ -123,12 +109,11 @@
   <header>
     <h1>我的 AI 技能库</h1>
     <p class="sub">12 个常用思考框架 · 五大场景</p>
-    <div class="rule"></div>
   </header>
 
   <div class="about">
     <h2>我的思考</h2>
-    <p>AI 时代最稀缺的能力，不是记住多少知识，而是知道<strong>自己想问什么</strong>、<strong>怎么判断真假</strong>、<strong>如何做出选择</strong>。</p>
+    <p>AI 时代最稀缺的能力，不是记住多少知识，而是知道<strong style="color:var(--ember)">自己想问什么</strong>、<strong style="color:var(--ember)">怎么判断真假</strong>、<strong style="color:var(--ember)">如何做出选择</strong>。</p>
     <p>这 12 个框架是我反复使用、真正帮我解决问题的思考方式——面对混乱先问清问题，面对陌生先学会学习，面对难题先拆解本质，面对选择先摆全论证，面对自己先认识自己。</p>
     <p>Prompt 会过时，模型会迭代，但一个人怎么提问、怎么思考、怎么认识自己——这些东西永远不会过时。</p>
     <p class="sign">—— obi_xiao</p>
@@ -136,51 +121,51 @@
 
   <div class="section">
     <h2>核心框架</h2>
-    <div class="grid">
-      <a class="card" href="skills/core-framework/SKILL.html"><span class="idx">01</span><h3>core-framework</h3><p>核心思考与工作框架——灵魂四铁律 + 12 个剖析动作，每次工作前先激活。</p></a>
-      <a class="card" href="skills/prompt-dozen/SKILL.html"><span class="idx">02</span><h3>prompt-dozen</h3><p>12 个常用文字提示词模板合集，五大场景全覆盖，复制即用。</p></a>
+    <div class="list">
+      <a class="item" href="skills/core-framework/SKILL.html"><span class="num">01</span><span class="body"><h3>core-framework</h3><p>核心思考与工作框架——灵魂四铁律 + 12 个剖析动作，每次工作前先激活。</p></span><span class="arrow">→</span></a>
+      <a class="item" href="skills/prompt-dozen/SKILL.html"><span class="num">02</span><span class="body"><h3>prompt-dozen</h3><p>12 个常用文字提示词模板合集，五大场景全覆盖，复制即用。</p></span><span class="arrow">→</span></a>
     </div>
   </div>
 
   <div class="section">
     <h2>问清问题</h2>
-    <div class="grid">
-      <a class="card" href="skills/socratic-questioning/SKILL.html"><span class="idx">03</span><h3>socratic-questioning</h3><p>苏格拉底式提问——最多 6 个追问，帮用户理清真正想问的问题。</p></a>
+    <div class="list">
+      <a class="item" href="skills/socratic-questioning/SKILL.html"><span class="num">03</span><span class="body"><h3>socratic-questioning</h3><p>苏格拉底式提问——最多 6 个追问，帮用户理清真正想问的问题。</p></span><span class="arrow">→</span></a>
     </div>
   </div>
 
   <div class="section">
     <h2>学习</h2>
-    <div class="grid">
-      <a class="card" href="skills/dual-layer-explanation/SKILL.html"><span class="idx">04</span><h3>dual-layer-explanation</h3><p>双层解释法——小白版 + 专业版双层讲透，附术语对照与自测题。</p></a>
-      <a class="card" href="skills/cross-axis-research/SKILL.html"><span class="idx">05</span><h3>cross-axis-research</h3><p>横纵分析法——纵看演化、横看竞品，半小时搞懂任何陌生领域。</p></a>
-      <a class="card" href="skills/reverse-decomposition/SKILL.html"><span class="idx">06</span><h3>reverse-decomposition</h3><p>反向拆解——从优秀成品逆向学习其有效原因与可复用规律。</p></a>
-      <a class="card" href="skills/fact-check/SKILL.html"><span class="idx">07</span><h3>fact-check</h3><p>事实核查——拆解事实/结论/价值判断，联网核实并输出可信度评估。</p></a>
+    <div class="list">
+      <a class="item" href="skills/dual-layer-explanation/SKILL.html"><span class="num">04</span><span class="body"><h3>dual-layer-explanation</h3><p>双层解释法——小白版 + 专业版双层讲透，附术语对照与自测题。</p></span><span class="arrow">→</span></a>
+      <a class="item" href="skills/cross-axis-research/SKILL.html"><span class="num">05</span><span class="body"><h3>cross-axis-research</h3><p>横纵分析法——纵看演化、横看竞品，半小时搞懂任何陌生领域。</p></span><span class="arrow">→</span></a>
+      <a class="item" href="skills/reverse-decomposition/SKILL.html"><span class="num">06</span><span class="body"><h3>reverse-decomposition</h3><p>反向拆解——从优秀成品逆向学习其有效原因与可复用规律。</p></span><span class="arrow">→</span></a>
+      <a class="item" href="skills/fact-check/SKILL.html"><span class="num">07</span><span class="body"><h3>fact-check</h3><p>事实核查——拆解事实/结论/价值判断，联网核实并输出可信度评估。</p></span><span class="arrow">→</span></a>
     </div>
   </div>
 
   <div class="section">
     <h2>解决问题</h2>
-    <div class="grid">
-      <a class="card" href="skills/expert-panel/SKILL.html"><span class="idx">08</span><h3>expert-panel</h3><p>专家会诊——3 种互补专业视角互相质疑，从分歧中找出最优方案。</p></a>
-      <a class="card" href="skills/first-principles/SKILL.html"><span class="idx">09</span><h3>first-principles</h3><p>第一性原理——拆回底层基本事实与约束，抛开惯例重新推导。</p></a>
-      <a class="card" href="skills/cross-domain-solution/SKILL.html"><span class="idx">10</span><h3>cross-domain-solution</h3><p>跨领域借解——从 3 个以上遥远领域找相似解法，翻译回当前处境。</p></a>
+    <div class="list">
+      <a class="item" href="skills/expert-panel/SKILL.html"><span class="num">08</span><span class="body"><h3>expert-panel</h3><p>专家会诊——3 种互补专业视角互相质疑，从分歧中找出最优方案。</p></span><span class="arrow">→</span></a>
+      <a class="item" href="skills/first-principles/SKILL.html"><span class="num">09</span><span class="body"><h3>first-principles</h3><p>第一性原理——拆回底层基本事实与约束，抛开惯例重新推导。</p></span><span class="arrow">→</span></a>
+      <a class="item" href="skills/cross-domain-solution/SKILL.html"><span class="num">10</span><span class="body"><h3>cross-domain-solution</h3><p>跨领域借解——从 3 个以上遥远领域找相似解法，翻译回当前处境。</p></span><span class="arrow">→</span></a>
     </div>
   </div>
 
   <div class="section">
     <h2>决策</h2>
-    <div class="grid">
-      <a class="card" href="skills/steelman-argument/SKILL.html"><span class="idx">11</span><h3>steelman-argument</h3><p>双向钢人论证——两个选项各自的最强论证摆全，找出关键变量。</p></a>
-      <a class="card" href="skills/minimal-experiment/SKILL.html"><span class="idx">12</span><h3>minimal-experiment</h3><p>最小实验替代空想——找出关键假设，设计低成本可逆实验。</p></a>
+    <div class="list">
+      <a class="item" href="skills/steelman-argument/SKILL.html"><span class="num">11</span><span class="body"><h3>steelman-argument</h3><p>双向钢人论证——两个选项各自的最强论证摆全，找出关键变量。</p></span><span class="arrow">→</span></a>
+      <a class="item" href="skills/minimal-experiment/SKILL.html"><span class="num">12</span><span class="body"><h3>minimal-experiment</h3><p>最小实验替代空想——找出关键假设，设计低成本可逆实验。</p></span><span class="arrow">→</span></a>
     </div>
   </div>
 
   <div class="section">
     <h2>认识自己</h2>
-    <div class="grid">
-      <a class="card" href="skills/talent-mining/SKILL.html"><span class="idx">13</span><h3>talent-mining</h3><p>深度天赋挖掘——基于盖洛普/心流/荣格心理学，输出万字天赋说明书。</p></a>
-      <a class="card" href="skills/life-design/SKILL.html"><span class="idx">14</span><h3>life-design</h3><p>人生设计术——斯坦福人生设计方法，产出三个五年人生版本。</p></a>
+    <div class="list">
+      <a class="item" href="skills/talent-mining/SKILL.html"><span class="num">13</span><span class="body"><h3>talent-mining</h3><p>深度天赋挖掘——基于盖洛普/心流/荣格心理学，输出万字天赋说明书。</p></span><span class="arrow">→</span></a>
+      <a class="item" href="skills/life-design/SKILL.html"><span class="num">14</span><span class="body"><h3>life-design</h3><p>人生设计术——斯坦福人生设计方法，产出三个五年人生版本。</p></span><span class="arrow">→</span></a>
     </div>
   </div>
 
@@ -200,13 +185,13 @@
     W = canvas.width = window.innerWidth;
     H = canvas.height = window.innerHeight;
     cx = W / 2;
-    cy = H * 0.62;   // 黑洞略偏下，让出顶部标题
-    R = Math.min(W, H) * 0.075;
+    cy = H * 0.64;
+    R = Math.min(W, H) * 0.07;
   }
   resize();
   window.addEventListener('resize', resize);
 
-  // 光粒子（保留，冷白淡蓝，克制）
+  // 光粒子（冷白为主 + 少量暖橙）
   var P = [];
   function spawn() {
     var ang = Math.random() * Math.PI * 2;
@@ -217,7 +202,7 @@
       size: 0.5 + Math.random() * 1.5,
       speed: 0.3 + Math.random() * 1.1,
       alpha: 0.3 + Math.random() * 0.45,
-      color: Math.random() < 0.8 ? '210,220,235' : '232,168,107'
+      color: Math.random() < 0.82 ? '210,220,235' : '232,168,107'
     };
   }
   for (var i = 0; i < 140; i++) P.push(spawn());
@@ -227,44 +212,30 @@
     t++;
     ctx.clearRect(0, 0, W, H);
 
-    // 1. 倾斜椭圆吸积盘（暖色，真实黑洞质感）
+    // Grok 式斜线：一条穿过视界的暖色细光，缓慢明暗呼吸
+    var breath = 0.5 + 0.3 * Math.sin(t * 0.015);
     ctx.save();
     ctx.translate(cx, cy);
-    ctx.rotate(-0.24 + t * 0.0022);   // 固定倾角 + 缓慢旋转
-    ctx.scale(1, 0.30);                // 压成扁平盘
-    var g = ctx.createRadialGradient(0, 0, R * 0.9, 0, 0, R * 3.6);
-    g.addColorStop(0.00, 'rgba(255,250,242,0.85)');  // 内圈白热
-    g.addColorStop(0.28, 'rgba(242,206,160,0.55)');  // 暖金
-    g.addColorStop(0.55, 'rgba(232,168,107,0.24)');  // 暖橙
-    g.addColorStop(0.80, 'rgba(150,100,70,0.08)');
-    g.addColorStop(1.00, 'rgba(120,80,60,0)');
-    ctx.fillStyle = g;
+    ctx.rotate(-0.42);   // 斜线角度
+    var lg = ctx.createLinearGradient(-R * 1.8, 0, R * 1.8, 0);
+    lg.addColorStop(0, 'rgba(232,168,107,0)');
+    lg.addColorStop(0.5, 'rgba(242,222,190,' + (0.65 * breath) + ')');
+    lg.addColorStop(1, 'rgba(232,168,107,0)');
+    ctx.strokeStyle = lg;
+    ctx.lineWidth = R * 0.06;
+    ctx.lineCap = 'round';
     ctx.beginPath();
-    ctx.arc(0, 0, R * 3.6, 0, Math.PI * 2);
-    ctx.fill();
+    ctx.moveTo(-R * 1.8, 0);
+    ctx.lineTo(R * 1.8, 0);
+    ctx.stroke();
     ctx.restore();
 
-    // 2. 引力透镜光环（正圆，独立于吸积盘倾角，视界上下露出弧）
-    ctx.save();
-    ctx.translate(cx, cy);
-    var rg = ctx.createRadialGradient(0, 0, R * 1.25, 0, 0, R * 1.6);
-    rg.addColorStop(0.00, 'rgba(255,244,224,0)');
-    rg.addColorStop(0.55, 'rgba(242,229,207,0.0)');
-    rg.addColorStop(0.82, 'rgba(242,222,190,0.30)');
-    rg.addColorStop(0.92, 'rgba(232,168,107,0.22)');
-    rg.addColorStop(1.00, 'rgba(232,168,107,0)');
-    ctx.fillStyle = rg;
-    ctx.beginPath();
-    ctx.arc(0, 0, R * 1.6, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
-
-    // 3. 粒子飞入视界
+    // 粒子飞入视界
     for (var k = 0; k < P.length; k++) {
       var p = P[k];
       var dx = cx - p.x, dy = cy - p.y;
       var dist = Math.sqrt(dx * dx + dy * dy);
-      var accel = 1 + 34 / (dist + 6);
+      var accel = 1 + 32 / (dist + 6);
       p.x += (dx / dist) * p.speed * accel;
       p.y += (dy / dist) * p.speed * accel;
       p.size *= 0.9988;
@@ -275,7 +246,7 @@
       ctx.fill();
     }
 
-    // 4. 事件视界（纯黑，无发光，盖住中心）
+    // 事件视界：纯黑圆，盖住斜线中间和粒子
     ctx.save();
     ctx.beginPath();
     ctx.arc(cx, cy, R, 0, Math.PI * 2);
