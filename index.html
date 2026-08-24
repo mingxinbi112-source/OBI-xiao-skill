@@ -212,25 +212,70 @@
     t++;
     ctx.clearRect(0, 0, W, H);
 
-    // Grok 式斜线：一条穿过视界的暖色细光，缓慢明暗呼吸
-    var breath = 0.5 + 0.3 * Math.sin(t * 0.015);
+    // 固定倾角（Gargantua 那种盘面倾斜）
+    var tilt = -0.25;
+    var rot = t * 0.0025;   // 缓慢自转
+
+    // ===== 1. 引力透镜光环（正圆环带，上下对称，Interstellar 上下光晕来源）=====
     ctx.save();
     ctx.translate(cx, cy);
-    ctx.rotate(-0.42);   // 斜线角度
-    var lg = ctx.createLinearGradient(-R * 1.8, 0, R * 1.8, 0);
-    lg.addColorStop(0, 'rgba(232,168,107,0)');
-    lg.addColorStop(0.5, 'rgba(242,222,190,' + (0.65 * breath) + ')');
-    lg.addColorStop(1, 'rgba(232,168,107,0)');
-    ctx.strokeStyle = lg;
-    ctx.lineWidth = R * 0.06;
-    ctx.lineCap = 'round';
+    var ringGrad = ctx.createRadialGradient(0, 0, R * 1.28, 0, 0, R * 1.72);
+    ringGrad.addColorStop(0.00, 'rgba(255,244,224,0.00)');
+    ringGrad.addColorStop(0.28, 'rgba(255,240,215,0.22)');
+    ringGrad.addColorStop(0.52, 'rgba(242,206,160,0.50)');
+    ringGrad.addColorStop(0.76, 'rgba(232,168,107,0.24)');
+    ringGrad.addColorStop(1.00, 'rgba(200,120,80,0.00)');
+    ctx.fillStyle = ringGrad;
     ctx.beginPath();
-    ctx.moveTo(-R * 1.8, 0);
-    ctx.lineTo(R * 1.8, 0);
+    ctx.arc(0, 0, R * 1.72, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    // ===== 2. 吸积盘（压扁 3D 椭圆，暖色温度梯度，旋转）=====
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(tilt + rot);
+    ctx.scale(1, 0.30);
+    var diskGrad = ctx.createRadialGradient(0, 0, R * 0.9, 0, 0, R * 3.1);
+    diskGrad.addColorStop(0.00, 'rgba(255,252,246,0.92)');  // 内圈白热
+    diskGrad.addColorStop(0.28, 'rgba(250,220,175,0.62)');  // 暖金
+    diskGrad.addColorStop(0.56, 'rgba(238,178,112,0.32)');  // 暖橙
+    diskGrad.addColorStop(0.82, 'rgba(185,120,75,0.12)');
+    diskGrad.addColorStop(1.00, 'rgba(170,110,70,0.00)');
+    ctx.fillStyle = diskGrad;
+    ctx.beginPath();
+    ctx.arc(0, 0, R * 3.1, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    // ===== 3. 多普勒明暗（固定水平方向：左侧朝向更亮，右侧远离更暗）=====
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.scale(1, 0.30);
+    var dop = ctx.createLinearGradient(-R * 3.1, 0, R * 3.1, 0);
+    dop.addColorStop(0.00, 'rgba(0,0,0,0.00)');
+    dop.addColorStop(0.50, 'rgba(0,0,0,0.20)');
+    dop.addColorStop(0.80, 'rgba(0,0,0,0.42)');
+    dop.addColorStop(1.00, 'rgba(0,0,0,0.55)');
+    ctx.fillStyle = dop;
+    ctx.beginPath();
+    ctx.arc(0, 0, R * 3.1, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    // ===== 4. 光子环（极细亮环，紧贴视界，轻微呼吸）=====
+    var photon = 0.45 + 0.15 * Math.sin(t * 0.02);
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, R * 1.06, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(255,248,238,' + photon + ')';
+    ctx.lineWidth = 1.4;
+    ctx.shadowColor = 'rgba(255,230,190,0.7)';
+    ctx.shadowBlur = 7;
     ctx.stroke();
     ctx.restore();
 
-    // 粒子飞入视界
+    // ===== 5. 粒子飞入视界 =====
     for (var k = 0; k < P.length; k++) {
       var p = P[k];
       var dx = cx - p.x, dy = cy - p.y;
@@ -246,11 +291,16 @@
       ctx.fill();
     }
 
-    // 事件视界：纯黑圆，盖住斜线中间和粒子
+    // ===== 6. 事件视界（黑球 + 边缘暖色反射，球体立体感）=====
     ctx.save();
+    var bhGrad = ctx.createRadialGradient(cx - R * 0.35, cy - R * 0.35, R * 0.1, cx, cy, R);
+    bhGrad.addColorStop(0.00, '#000000');
+    bhGrad.addColorStop(0.80, '#000000');
+    bhGrad.addColorStop(0.93, 'rgba(110,64,38,0.30)');   // 边缘被吸积盘照亮
+    bhGrad.addColorStop(1.00, 'rgba(190,130,80,0.50)');
+    ctx.fillStyle = bhGrad;
     ctx.beginPath();
     ctx.arc(cx, cy, R, 0, Math.PI * 2);
-    ctx.fillStyle = '#000';
     ctx.fill();
     ctx.restore();
 
