@@ -9,190 +9,151 @@
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --accent: #7fb8ff;      /* 星光蓝 */
-    --accent2: #a78bfa;     /* 星云紫 */
-    --bg: #060a18;
-    --border: rgba(127,184,255,.22);
-    --text: #e8ecff;
-    --muted: #8a93b8;
-    --pink: #c4a7ff;
+    --bg: #04060c;
+    --panel: #0a0d14;
+    --border: #1c2230;
+    --text: #e8e6e0;
+    --muted: #8a8f98;
+    --warm: #f2e5cf;      /* 吸积盘暖白 */
+    --ember: #e8a86b;     /* 吸积盘暖橙 */
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
     color: var(--text);
     font-family: 'M PLUS Rounded 1c', -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
-    line-height: 1.8;
+    line-height: 1.85;
     min-height: 100vh;
     overflow-x: hidden;
-    background-color: #04081a;
+    background-color: var(--bg);
     background-image:
-      linear-gradient(180deg, rgba(4,8,20,.80), rgba(4,8,20,.90) 60%, rgba(4,8,20,.97)),
-      radial-gradient(ellipse 60% 42% at 18% 8%, rgba(90,120,220,.20), transparent 60%),
-      radial-gradient(ellipse 52% 40% at 82% 28%, rgba(140,90,220,.14), transparent 60%),
-      radial-gradient(ellipse 40% 30% at 50% 90%, rgba(60,110,200,.12), transparent 60%),
+      linear-gradient(180deg, rgba(4,6,12,.82), rgba(4,6,12,.94) 70%, rgba(4,6,12,1)),
       url('assets/bg-stars.jpg');
     background-size: cover;
     background-position: center top;
     background-attachment: fixed;
   }
-  .wrap { max-width: 960px; margin: 0 auto; padding: 48px 24px 80px; position: relative; z-index: 2; }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 44px 24px 72px; position: relative; z-index: 2; }
 
-  /* ===== 黑洞画布 ===== */
   #bh { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 
-  /* ===== 星光闪烁 ===== */
-  .star { position: fixed; border-radius: 50%; background: #dfe8ff; pointer-events: none; z-index: 1; animation: twinkle ease-in-out infinite; }
-  @keyframes twinkle { 0%,100% { opacity: .12; transform: scale(.7); } 50% { opacity: .85; transform: scale(1.2); } }
+  .star { position: fixed; border-radius: 50%; background: #dfe4ee; pointer-events: none; z-index: 1; animation: twinkle ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: .08; transform: scale(.7); } 50% { opacity: .5; transform: scale(1.1); } }
 
   /* ===== 顶部 ===== */
-  header { text-align: center; margin-bottom: 48px; }
-  .hero { display: flex; flex-direction: column; align-items: center; }
-  header h1 {
-    font-size: 46px; font-weight: 800; letter-spacing: 2px;
-    background: linear-gradient(135deg, #d6e4ff, var(--accent) 50%, var(--accent2));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 18px rgba(127,184,255,.35));
-  }
-  header .sub { color: var(--muted); margin-top: 10px; font-size: 15px; letter-spacing: 1px; }
-  .badge {
-    display: inline-block; margin-top: 16px; padding: 4px 16px;
-    border: 1px solid var(--border); border-radius: 999px;
-    color: var(--accent); font-size: 13px; background: rgba(127,184,255,.08);
-    box-shadow: 0 0 12px rgba(127,184,255,.15);
-  }
-  .stats { display: flex; justify-content: center; gap: 44px; margin: 32px 0 8px; }
-  .stat { text-align: center; }
-  .stat b { display: block; font-size: 30px; color: var(--accent); text-shadow: 0 0 16px rgba(127,184,255,.5); }
-  .stat span { font-size: 13px; color: var(--muted); }
+  header { text-align: center; margin-bottom: 44px; }
+  header h1 { font-size: 42px; font-weight: 800; letter-spacing: 3px; color: var(--text); }
+  header .sub { color: var(--muted); margin-top: 10px; font-size: 14px; letter-spacing: 1px; }
+  .rule { width: 44px; height: 2px; background: var(--ember); margin: 18px auto 0; }
 
   /* ===== 我的思考 ===== */
   .about {
-    background: linear-gradient(135deg, rgba(127,184,255,.10), rgba(167,139,250,.06));
-    border: 1px solid var(--border);
-    border-radius: 16px; padding: 28px 32px; margin-bottom: 48px;
-    box-shadow: 0 0 24px rgba(127,184,255,.08);
-    backdrop-filter: blur(8px);
+    background: var(--panel); border: 1px solid var(--border); border-radius: 6px;
+    padding: 26px 30px; margin-bottom: 44px;
   }
-  .about h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; color: var(--accent); }
-  .about p { font-size: 14.5px; margin-bottom: 12px; }
-  .about .sign { text-align: right; color: var(--muted); font-size: 13px; margin-top: 4px; }
+  .about h2 { font-size: 15px; font-weight: 700; letter-spacing: 2px; margin-bottom: 14px; color: var(--text); }
+  .about p { font-size: 14px; margin-bottom: 12px; color: #c9c7c1; }
+  .about .sign { text-align: right; color: var(--muted); font-size: 12px; margin-top: 4px; }
 
   /* ===== 分区与卡片 ===== */
-  .section { margin-top: 40px; }
+  .section { margin-top: 38px; }
   .section h2 {
-    font-size: 18px; font-weight: 700; margin-bottom: 16px;
-    padding-left: 12px; border-left: 4px solid var(--accent);
+    font-size: 13px; font-weight: 700; letter-spacing: 3px; margin-bottom: 16px;
+    color: var(--muted); text-transform: uppercase;
   }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 12px; }
   .card {
-    background: rgba(13,18,38,.68); border: 1px solid var(--border); border-radius: 14px;
-    padding: 18px 20px; text-decoration: none; color: var(--text);
-    transition: transform .15s, border-color .15s, box-shadow .15s; display: block;
-    backdrop-filter: blur(6px);
+    background: var(--panel); border: 1px solid var(--border); border-radius: 6px;
+    padding: 16px 18px; text-decoration: none; color: var(--text); display: block;
+    transition: border-color .15s, background .15s;
   }
-  .card:hover {
-    transform: translateY(-3px);
-    border-color: var(--accent);
-    box-shadow: 0 0 20px rgba(127,184,255,.25);
-  }
-  .card h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; color: var(--accent); }
-  .card p { font-size: 13px; color: var(--muted); }
-  .tag { display: inline-block; font-size: 11px; padding: 1px 8px; border-radius: 999px; margin-bottom: 8px; }
-  .t-blue { background: rgba(127,184,255,.16); color: #9dc0ff; }
-  .t-purple { background: rgba(196,167,255,.16); color: #cdb6ff; }
-  .t-gray { background: rgba(138,147,184,.16); color: var(--muted); }
+  .card:hover { border-color: #3a4356; background: #0d1119; }
+  .card h3 { font-size: 15px; font-weight: 700; margin-bottom: 5px; color: var(--text); }
+  .card p { font-size: 12.5px; color: var(--muted); }
+  .card .idx { font-size: 11px; color: var(--ember); letter-spacing: 1px; margin-bottom: 8px; display: block; }
 
-  footer { margin-top: 64px; text-align: center; color: var(--muted); font-size: 13px; }
-  footer a { color: var(--accent); text-decoration: none; }
+  footer { margin-top: 60px; text-align: center; color: var(--muted); font-size: 12px; }
+  footer a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border); }
 </style>
 </head>
 <body>
   <canvas id="bh"></canvas>
 
-  <!-- 星光粒子 -->
-  <span class="star" style="width:3px;height:3px;left:8%;top:18%;animation-duration:2.8s;animation-delay:0s;"></span>
-  <span class="star" style="width:2px;height:2px;left:22%;top:35%;animation-duration:3.4s;animation-delay:1s;"></span>
-  <span class="star" style="width:4px;height:4px;left:38%;top:12%;animation-duration:2.2s;animation-delay:.5s;"></span>
-  <span class="star" style="width:2px;height:2px;left:52%;top:45%;animation-duration:3.8s;animation-delay:1.6s;"></span>
-  <span class="star" style="width:3px;height:3px;left:66%;top:22%;animation-duration:2.6s;animation-delay:.8s;"></span>
-  <span class="star" style="width:2px;height:2px;left:78%;top:55%;animation-duration:3.2s;animation-delay:2s;"></span>
-  <span class="star" style="width:4px;height:4px;left:88%;top:30%;animation-duration:2.4s;animation-delay:1.2s;"></span>
-  <span class="star" style="width:2px;height:2px;left:45%;top:65%;animation-duration:3.6s;animation-delay:.3s;"></span>
-  <span class="star" style="width:3px;height:3px;left:15%;top:72%;animation-duration:3s;animation-delay:1.8s;"></span>
-  <span class="star" style="width:2px;height:2px;left:60%;top:78%;animation-duration:2.9s;animation-delay:.6s;"></span>
-  <span class="star" style="width:3px;height:3px;left:82%;top:70%;animation-duration:3.3s;animation-delay:1.4s;"></span>
-  <span class="star" style="width:2px;height:2px;left:30%;top:88%;animation-duration:2.7s;animation-delay:2.2s;"></span>
+  <span class="star" style="width:3px;height:3px;left:8%;top:18%;animation-duration:3s;animation-delay:0s;"></span>
+  <span class="star" style="width:2px;height:2px;left:22%;top:35%;animation-duration:3.6s;animation-delay:1s;"></span>
+  <span class="star" style="width:3px;height:3px;left:38%;top:12%;animation-duration:2.6s;animation-delay:.5s;"></span>
+  <span class="star" style="width:2px;height:2px;left:52%;top:45%;animation-duration:4s;animation-delay:1.6s;"></span>
+  <span class="star" style="width:3px;height:3px;left:66%;top:22%;animation-duration:3.2s;animation-delay:.8s;"></span>
+  <span class="star" style="width:2px;height:2px;left:78%;top:55%;animation-duration:3.5s;animation-delay:2s;"></span>
+  <span class="star" style="width:3px;height:3px;left:88%;top:30%;animation-duration:2.8s;animation-delay:1.2s;"></span>
+  <span class="star" style="width:2px;height:2px;left:45%;top:65%;animation-duration:3.8s;animation-delay:.3s;"></span>
+  <span class="star" style="width:3px;height:3px;left:15%;top:72%;animation-duration:3.1s;animation-delay:1.8s;"></span>
+  <span class="star" style="width:2px;height:2px;left:60%;top:78%;animation-duration:3.3s;animation-delay:.6s;"></span>
+  <span class="star" style="width:3px;height:3px;left:82%;top:70%;animation-duration:3.5s;animation-delay:1.4s;"></span>
+  <span class="star" style="width:2px;height:2px;left:30%;top:88%;animation-duration:2.9s;animation-delay:2.2s;"></span>
 
 <div class="wrap">
   <header>
-    <div class="hero">
-      <h1>我的 AI 技能库</h1>
-    </div>
-    <p class="sub">12 个常用思考框架 · 五大场景：问清问题 / 学习 / 解决问题 / 决策 / 认识自己</p>
-    <span class="badge">💡 14 个技能 · 全部可直接套用</span>
-    <div class="stats">
-      <div class="stat"><b>5</b><span>大场景</span></div>
-      <div class="stat"><b>12</b><span>核心框架</span></div>
-      <div class="stat"><b>14</b><span>可复用技能</span></div>
-    </div>
+    <h1>我的 AI 技能库</h1>
+    <p class="sub">12 个常用思考框架 · 五大场景</p>
+    <div class="rule"></div>
   </header>
 
   <div class="about">
     <h2>我的思考</h2>
-    <p>AI 时代最稀缺的能力，不是记住多少知识，而是知道<strong style="color:var(--accent)">自己想问什么</strong>、<strong style="color:var(--accent)">怎么判断真假</strong>、<strong style="color:var(--accent)">如何做出选择</strong>。</p>
-    <p>这 12 个框架是我反复使用、真正帮我解决问题的思考方式——我把它们整理成 14 个可复用技能：</p>
-    <p>面对混乱，先问清问题；面对陌生，先学会学习；面对难题，先拆解本质；面对选择，先摆全论证；面对自己，先认识自己。</p>
-    <p>Prompt 会过时，模型会迭代，但一个人<strong style="color:var(--accent)">怎么提问、怎么思考、怎么认识自己</strong>——这些东西永远不会过时。</p>
+    <p>AI 时代最稀缺的能力，不是记住多少知识，而是知道<strong>自己想问什么</strong>、<strong>怎么判断真假</strong>、<strong>如何做出选择</strong>。</p>
+    <p>这 12 个框架是我反复使用、真正帮我解决问题的思考方式——面对混乱先问清问题，面对陌生先学会学习，面对难题先拆解本质，面对选择先摆全论证，面对自己先认识自己。</p>
+    <p>Prompt 会过时，模型会迭代，但一个人怎么提问、怎么思考、怎么认识自己——这些东西永远不会过时。</p>
     <p class="sign">—— obi_xiao</p>
   </div>
 
   <div class="section">
-    <h2>🧠 核心框架</h2>
+    <h2>核心框架</h2>
     <div class="grid">
-      <a class="card" href="skills/core-framework/SKILL.html"><span class="tag t-purple">启动协议</span><h3>core-framework</h3><p>核心思考与工作框架——灵魂四铁律 + 12 个剖析动作，每次工作前先激活。</p></a>
-      <a class="card" href="skills/prompt-dozen/SKILL.html"><span class="tag t-blue">模板库</span><h3>prompt-dozen</h3><p>12 个常用文字提示词模板合集，五大场景全覆盖，复制即用。</p></a>
+      <a class="card" href="skills/core-framework/SKILL.html"><span class="idx">01</span><h3>core-framework</h3><p>核心思考与工作框架——灵魂四铁律 + 12 个剖析动作，每次工作前先激活。</p></a>
+      <a class="card" href="skills/prompt-dozen/SKILL.html"><span class="idx">02</span><h3>prompt-dozen</h3><p>12 个常用文字提示词模板合集，五大场景全覆盖，复制即用。</p></a>
     </div>
   </div>
 
   <div class="section">
-    <h2>❓ 问清问题</h2>
+    <h2>问清问题</h2>
     <div class="grid">
-      <a class="card" href="skills/socratic-questioning/SKILL.html"><span class="tag t-blue">澄清</span><h3>socratic-questioning</h3><p>苏格拉底式提问——最多 6 个追问，帮用户理清真正想问的问题。</p></a>
+      <a class="card" href="skills/socratic-questioning/SKILL.html"><span class="idx">03</span><h3>socratic-questioning</h3><p>苏格拉底式提问——最多 6 个追问，帮用户理清真正想问的问题。</p></a>
     </div>
   </div>
 
   <div class="section">
-    <h2>📚 学习</h2>
+    <h2>学习</h2>
     <div class="grid">
-      <a class="card" href="skills/dual-layer-explanation/SKILL.html"><span class="tag t-gray">讲透</span><h3>dual-layer-explanation</h3><p>双层解释法——小白版 + 专业版双层讲透，附术语对照与自测题。</p></a>
-      <a class="card" href="skills/cross-axis-research/SKILL.html"><span class="tag t-gray">研究</span><h3>cross-axis-research</h3><p>横纵分析法——纵看演化、横看竞品，半小时搞懂任何陌生领域。</p></a>
-      <a class="card" href="skills/reverse-decomposition/SKILL.html"><span class="tag t-gray">拆解</span><h3>reverse-decomposition</h3><p>反向拆解——从优秀成品逆向学习其有效原因与可复用规律。</p></a>
-      <a class="card" href="skills/fact-check/SKILL.html"><span class="tag t-gray">核查</span><h3>fact-check</h3><p>事实核查——拆解事实/结论/价值判断，联网核实并输出可信度评估。</p></a>
+      <a class="card" href="skills/dual-layer-explanation/SKILL.html"><span class="idx">04</span><h3>dual-layer-explanation</h3><p>双层解释法——小白版 + 专业版双层讲透，附术语对照与自测题。</p></a>
+      <a class="card" href="skills/cross-axis-research/SKILL.html"><span class="idx">05</span><h3>cross-axis-research</h3><p>横纵分析法——纵看演化、横看竞品，半小时搞懂任何陌生领域。</p></a>
+      <a class="card" href="skills/reverse-decomposition/SKILL.html"><span class="idx">06</span><h3>reverse-decomposition</h3><p>反向拆解——从优秀成品逆向学习其有效原因与可复用规律。</p></a>
+      <a class="card" href="skills/fact-check/SKILL.html"><span class="idx">07</span><h3>fact-check</h3><p>事实核查——拆解事实/结论/价值判断，联网核实并输出可信度评估。</p></a>
     </div>
   </div>
 
   <div class="section">
-    <h2>🛠 解决问题</h2>
+    <h2>解决问题</h2>
     <div class="grid">
-      <a class="card" href="skills/expert-panel/SKILL.html"><span class="tag t-blue">会诊</span><h3>expert-panel</h3><p>专家会诊——3 种互补专业视角互相质疑，从分歧中找出最优方案。</p></a>
-      <a class="card" href="skills/first-principles/SKILL.html"><span class="tag t-blue">本质</span><h3>first-principles</h3><p>第一性原理——拆回底层基本事实与约束，抛开惯例重新推导。</p></a>
-      <a class="card" href="skills/cross-domain-solution/SKILL.html"><span class="tag t-blue">借解</span><h3>cross-domain-solution</h3><p>跨领域借解——从 3 个以上遥远领域找相似解法，翻译回当前处境。</p></a>
+      <a class="card" href="skills/expert-panel/SKILL.html"><span class="idx">08</span><h3>expert-panel</h3><p>专家会诊——3 种互补专业视角互相质疑，从分歧中找出最优方案。</p></a>
+      <a class="card" href="skills/first-principles/SKILL.html"><span class="idx">09</span><h3>first-principles</h3><p>第一性原理——拆回底层基本事实与约束，抛开惯例重新推导。</p></a>
+      <a class="card" href="skills/cross-domain-solution/SKILL.html"><span class="idx">10</span><h3>cross-domain-solution</h3><p>跨领域借解——从 3 个以上遥远领域找相似解法，翻译回当前处境。</p></a>
     </div>
   </div>
 
   <div class="section">
-    <h2>⚖️ 决策</h2>
+    <h2>决策</h2>
     <div class="grid">
-      <a class="card" href="skills/steelman-argument/SKILL.html"><span class="tag t-purple">论证</span><h3>steelman-argument</h3><p>双向钢人论证——两个选项各自的最强论证摆全，找出关键变量。</p></a>
-      <a class="card" href="skills/minimal-experiment/SKILL.html"><span class="tag t-purple">实验</span><h3>minimal-experiment</h3><p>最小实验替代空想——找出关键假设，设计低成本可逆实验。</p></a>
+      <a class="card" href="skills/steelman-argument/SKILL.html"><span class="idx">11</span><h3>steelman-argument</h3><p>双向钢人论证——两个选项各自的最强论证摆全，找出关键变量。</p></a>
+      <a class="card" href="skills/minimal-experiment/SKILL.html"><span class="idx">12</span><h3>minimal-experiment</h3><p>最小实验替代空想——找出关键假设，设计低成本可逆实验。</p></a>
     </div>
   </div>
 
   <div class="section">
-    <h2>🧭 认识自己</h2>
+    <h2>认识自己</h2>
     <div class="grid">
-      <a class="card" href="skills/talent-mining/SKILL.html"><span class="tag t-gray">天赋</span><h3>talent-mining</h3><p>深度天赋挖掘——基于盖洛普/心流/荣格心理学，输出万字天赋说明书。</p></a>
-      <a class="card" href="skills/life-design/SKILL.html"><span class="tag t-gray">人生</span><h3>life-design</h3><p>人生设计术——斯坦福人生设计方法，产出三个五年人生版本。</p></a>
+      <a class="card" href="skills/talent-mining/SKILL.html"><span class="idx">13</span><h3>talent-mining</h3><p>深度天赋挖掘——基于盖洛普/心流/荣格心理学，输出万字天赋说明书。</p></a>
+      <a class="card" href="skills/life-design/SKILL.html"><span class="idx">14</span><h3>life-design</h3><p>人生设计术——斯坦福人生设计方法，产出三个五年人生版本。</p></a>
     </div>
   </div>
 
@@ -212,98 +173,82 @@
     W = canvas.width = window.innerWidth;
     H = canvas.height = window.innerHeight;
     cx = W / 2;
-    cy = H / 2;
-    R = Math.min(W, H) * 0.055; // 事件视界半径
+    cy = H * 0.62;   // 黑洞略偏下，让出顶部标题
+    R = Math.min(W, H) * 0.075;
   }
   resize();
   window.addEventListener('resize', resize);
 
-  // 光粒子
+  // 光粒子（保留，冷白淡蓝，克制）
   var P = [];
   function spawn() {
     var ang = Math.random() * Math.PI * 2;
-    var d = Math.max(W, H) * (0.5 + Math.random() * 0.25);
+    var d = Math.max(W, H) * (0.55 + Math.random() * 0.3);
     return {
       x: cx + Math.cos(ang) * d,
       y: cy + Math.sin(ang) * d,
-      size: 0.6 + Math.random() * 1.9,
-      speed: 0.35 + Math.random() * 1.3,
-      alpha: 0.45 + Math.random() * 0.5,
-      color: Math.random() < 0.85 ? '160,200,255' : '196,167,255'
+      size: 0.5 + Math.random() * 1.5,
+      speed: 0.3 + Math.random() * 1.1,
+      alpha: 0.3 + Math.random() * 0.45,
+      color: Math.random() < 0.8 ? '210,220,235' : '232,168,107'
     };
   }
-  for (var i = 0; i < 150; i++) P.push(spawn());
+  for (var i = 0; i < 140; i++) P.push(spawn());
 
   var t = 0;
   function frame() {
     t++;
     ctx.clearRect(0, 0, W, H);
 
-    // 1. 吸积盘（旋转椭圆环）
+    // 1. 倾斜椭圆吸积盘（暖色，真实黑洞质感，非圆形）
     ctx.save();
     ctx.translate(cx, cy);
-    ctx.rotate(t * 0.004);
-    ctx.scale(1, 0.34);
-    var g = ctx.createRadialGradient(0, 0, R * 0.95, 0, 0, R * 3.8);
-    g.addColorStop(0.00, 'rgba(255,255,255,0.92)');
-    g.addColorStop(0.22, 'rgba(150,205,255,0.55)');
-    g.addColorStop(0.52, 'rgba(95,140,255,0.22)');
-    g.addColorStop(0.80, 'rgba(140,100,255,0.10)');
-    g.addColorStop(1.00, 'rgba(60,80,200,0)');
+    ctx.rotate(-0.28 + t * 0.0022);   // 固定倾角 + 缓慢旋转
+    ctx.scale(1, 0.30);                // 压成扁平盘
+    var g = ctx.createRadialGradient(0, 0, R * 0.9, 0, 0, R * 3.6);
+    g.addColorStop(0.00, 'rgba(255,250,242,0.85)');  // 内圈白热
+    g.addColorStop(0.28, 'rgba(242,206,160,0.55)');  // 暖金
+    g.addColorStop(0.55, 'rgba(232,168,107,0.24)');  // 暖橙
+    g.addColorStop(0.80, 'rgba(150,100,70,0.08)');
+    g.addColorStop(1.00, 'rgba(120,80,60,0)');
     ctx.fillStyle = g;
     ctx.beginPath();
-    ctx.arc(0, 0, R * 3.8, 0, Math.PI * 2);
+    ctx.arc(0, 0, R * 3.6, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
 
-    // 2. 引力透镜光弧（上下弧，模拟光绕过黑洞）
+    // 2. 引力透镜光弧（上下弧，暖色，弱化发光）
     ctx.save();
     ctx.translate(cx, cy);
-    ctx.rotate(t * 0.004);
-    ctx.lineWidth = R * 0.05;
+    ctx.rotate(-0.28 + t * 0.0022);
+    ctx.lineWidth = R * 0.035;
     ctx.lineCap = 'round';
-    ctx.strokeStyle = 'rgba(180,210,255,0.55)';
-    ctx.shadowColor = '#8ab4ff';
-    ctx.shadowBlur = 12;
+    ctx.strokeStyle = 'rgba(242,229,207,0.35)';
     ctx.beginPath();
-    ctx.ellipse(0, 0, R * 1.75, R * 1.75, 0, Math.PI * 1.02, Math.PI * 1.30);
+    ctx.ellipse(0, 0, R * 1.85, R * 1.85, 0, Math.PI * 1.03, Math.PI * 1.27);
     ctx.stroke();
     ctx.beginPath();
-    ctx.ellipse(0, 0, R * 1.75, R * 1.75, 0, Math.PI * 1.70, Math.PI * 1.98);
+    ctx.ellipse(0, 0, R * 1.85, R * 1.85, 0, Math.PI * 1.73, Math.PI * 1.97);
     ctx.stroke();
     ctx.restore();
 
-    // 3. 光子环
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(cx, cy, R * 1.06, 0, Math.PI * 2);
-    ctx.strokeStyle = 'rgba(255,255,255,0.75)';
-    ctx.lineWidth = 1.6;
-    ctx.shadowColor = '#ffffff';
-    ctx.shadowBlur = 14;
-    ctx.stroke();
-    ctx.restore();
-
-    // 4. 粒子飞入
+    // 3. 粒子飞入视界
     for (var k = 0; k < P.length; k++) {
       var p = P[k];
       var dx = cx - p.x, dy = cy - p.y;
       var dist = Math.sqrt(dx * dx + dy * dy);
-      var accel = 1 + 40 / (dist + 8);
+      var accel = 1 + 34 / (dist + 6);
       p.x += (dx / dist) * p.speed * accel;
       p.y += (dy / dist) * p.speed * accel;
-      p.size *= 0.9985;
-      if (dist < R * 1.05 || p.size < 0.08) { P[k] = spawn(); continue; }
+      p.size *= 0.9988;
+      if (dist < R * 1.02 || p.size < 0.06) { P[k] = spawn(); continue; }
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
       ctx.fillStyle = 'rgba(' + p.color + ',' + p.alpha + ')';
-      ctx.shadowColor = 'rgba(' + p.color + ',0.9)';
-      ctx.shadowBlur = 6;
       ctx.fill();
     }
-    ctx.shadowBlur = 0;
 
-    // 5. 事件视界（黑球，盖住中心）
+    // 4. 事件视界（纯黑，无发光，盖住中心）
     ctx.save();
     ctx.beginPath();
     ctx.arc(cx, cy, R, 0, Math.PI * 2);
