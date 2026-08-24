@@ -49,34 +49,31 @@
   .top h1 { font-size: 34px; font-weight: 800; letter-spacing: 3px; color: var(--text); text-shadow: 0 0 30px rgba(0,0,0,.8); }
   .top .sub { color: var(--text3); margin-top: 6px; font-size: 12px; letter-spacing: 2px; }
 
-  /* 中部：左右两翼技能 */
-  .orbit { position: relative; flex: 1; display: flex; justify-content: space-between; align-items: stretch; padding: 2vh 3vw; }
-  .wing {
-    width: 27%; display: flex; flex-direction: column; justify-content: space-around;
-    gap: 1.4vh; pointer-events: auto;
-  }
-  .wing.left { align-items: flex-end; text-align: right; }
-  .wing.right { align-items: flex-start; text-align: left; }
+  /* 中部：技能环绕黑洞 */
+  .orbit { position: relative; flex: 1; pointer-events: none; }
 
-  /* 技能条目：小卡片，朝黑洞倾斜，不规则偏移 */
+  /* 技能条目：JS 绝对定位在黑洞四周椭圆轨道上，朝黑洞倾斜 */
   .skill {
+    position: absolute;
     display: block; text-decoration: none;
-    padding: 7px 13px;
+    padding: 6px 12px;
     color: var(--text2);
     border-radius: 6px;
-    transition: transform .35s cubic-bezier(.22,1.4,.36,1), color .25s, background .25s, border-color .25s;
     border: 1px solid transparent;
-    max-width: 260px;
+    pointer-events: auto;
+    white-space: nowrap;
+    transition: transform .35s cubic-bezier(.22,1.4,.36,1), color .25s, background .25s, border-color .25s;
   }
   .skill:hover {
     color: var(--ember);
-    background: rgba(232,168,107,0.05);
-    border-color: rgba(232,168,107,0.3);
-    transform: translateX(0) rotate(0deg) scale(1.06) !important;
+    background: rgba(232,168,107,0.06);
+    border-color: rgba(232,168,107,0.35);
+    transform: scale(1.12) !important;
+    z-index: 5;
   }
-  .skill .num { display: block; font-size: 10px; color: var(--ember); letter-spacing: 1px; opacity: .8; }
-  .skill h3 { font-size: 13.5px; font-weight: 700; color: inherit; line-height: 1.4; }
-  .skill p { font-size: 10.5px; color: var(--text3); line-height: 1.5; margin-top: 2px; }
+  .skill .num { display: block; font-size: 9px; color: var(--ember); letter-spacing: 1px; opacity: .8; }
+  .skill h3 { font-size: 12.5px; font-weight: 700; color: inherit; line-height: 1.35; }
+  .skill p { font-size: 9.5px; color: var(--text3); line-height: 1.4; margin-top: 1px; max-width: 150px; white-space: normal; }
 
   /* 底部：我的思考 + footer */
   .bottom { text-align: center; padding: 0 8vw; }
@@ -116,29 +113,7 @@
       <p class="sub">12 个常用思考框架 · 五大场景</p>
     </div>
 
-    <div class="orbit">
-      <!-- 左翼：问清问题 + 学习 + 核心 -->
-      <div class="wing left">
-        <a class="skill" href="skills/socratic-questioning/SKILL.html" style="transform: rotate(2.4deg) translateX(-8px);"><span class="num">03</span><h3>socratic-questioning</h3><p>苏格拉底式提问 · 最多6个追问理清真问题</p></a>
-        <a class="skill" href="skills/dual-layer-explanation/SKILL.html" style="transform: rotate(1.6deg) translateX(-16px);"><span class="num">04</span><h3>dual-layer-explanation</h3><p>双层解释法 · 小白+专业两层讲透</p></a>
-        <a class="skill" href="skills/cross-axis-research/SKILL.html" style="transform: rotate(2.8deg) translateX(-5px);"><span class="num">05</span><h3>cross-axis-research</h3><p>横纵分析法 · 半小时搞懂陌生领域</p></a>
-        <a class="skill" href="skills/reverse-decomposition/SKILL.html" style="transform: rotate(1.2deg) translateX(-20px);"><span class="num">06</span><h3>reverse-decomposition</h3><p>反向拆解 · 从优秀成品逆向学习</p></a>
-        <a class="skill" href="skills/fact-check/SKILL.html" style="transform: rotate(2.2deg) translateX(-10px);"><span class="num">07</span><h3>fact-check</h3><p>事实核查 · 联网核实输出可信度</p></a>
-        <a class="skill" href="skills/core-framework/SKILL.html" style="transform: rotate(1.0deg) translateX(-24px);"><span class="num">01</span><h3>core-framework</h3><p>核心思考与工作框架 · 启动协议</p></a>
-        <a class="skill" href="skills/prompt-dozen/SKILL.html" style="transform: rotate(1.8deg) translateX(-14px);"><span class="num">02</span><h3>prompt-dozen</h3><p>12个提示词模板合集</p></a>
-      </div>
-
-      <!-- 右翼：解决问题 + 决策 + 认识自己 -->
-      <div class="wing right">
-        <a class="skill" href="skills/expert-panel/SKILL.html" style="transform: rotate(-2.2deg) translateX(10px);"><span class="num">08</span><h3>expert-panel</h3><p>专家会诊 · 3视角互相质疑出最优解</p></a>
-        <a class="skill" href="skills/first-principles/SKILL.html" style="transform: rotate(-1.4deg) translateX(18px);"><span class="num">09</span><h3>first-principles</h3><p>第一性原理 · 拆回底层重新推导</p></a>
-        <a class="skill" href="skills/cross-domain-solution/SKILL.html" style="transform: rotate(-2.6deg) translateX(6px);"><span class="num">10</span><h3>cross-domain-solution</h3><p>跨领域借解 · 遥远领域找相似解法</p></a>
-        <a class="skill" href="skills/steelman-argument/SKILL.html" style="transform: rotate(-1.1deg) translateX(22px);"><span class="num">11</span><h3>steelman-argument</h3><p>双向钢人论证 · 摆全双方最强论证</p></a>
-        <a class="skill" href="skills/minimal-experiment/SKILL.html" style="transform: rotate(-2.0deg) translateX(12px);"><span class="num">12</span><h3>minimal-experiment</h3><p>最小实验 · 低成本可逆验证假设</p></a>
-        <a class="skill" href="skills/talent-mining/SKILL.html" style="transform: rotate(-1.7deg) translateX(16px);"><span class="num">13</span><h3>talent-mining</h3><p>深度天赋挖掘 · 万字天赋说明书</p></a>
-        <a class="skill" href="skills/life-design/SKILL.html" style="transform: rotate(-2.4deg) translateX(8px);"><span class="num">14</span><h3>life-design</h3><p>人生设计术 · 三个五年人生版本</p></a>
-      </div>
-    </div>
+    <div class="orbit" id="orbit"></div>
 
     <div class="bottom">
       <div class="about">
@@ -167,6 +142,60 @@
   }
   resize();
   window.addEventListener('resize', resize);
+
+  // ===== 技能环绕布局 =====
+  // 每个技能的角度（弧度，绕黑洞）、距离（相对半径倍数）、倾斜方向
+  var SKILLS = [
+    { num: '01', name: 'core-framework',        desc: '核心思考与工作框架', url: 'skills/core-framework/SKILL.html',        ang: -2.55, dist: 1.00 },
+    { num: '02', name: 'prompt-dozen',           desc: '12个提示词模板合集',  url: 'skills/prompt-dozen/SKILL.html',           ang: -2.15, dist: 0.88 },
+    { num: '03', name: 'socratic-questioning',   desc: '苏格拉底式提问',       url: 'skills/socratic-questioning/SKILL.html',   ang: -1.75, dist: 0.78 },
+    { num: '04', name: 'dual-layer-explanation', desc: '双层解释法',           url: 'skills/dual-layer-explanation/SKILL.html', ang: -1.30, dist: 0.92 },
+    { num: '05', name: 'cross-axis-research',    desc: '横纵分析法',           url: 'skills/cross-axis-research/SKILL.html',    ang: -0.85, dist: 0.80 },
+    { num: '06', name: 'reverse-decomposition',  desc: '反向拆解',             url: 'skills/reverse-decomposition/SKILL.html',  ang: -0.45, dist: 0.95 },
+    { num: '07', name: 'fact-check',             desc: '事实核查',             url: 'skills/fact-check/SKILL.html',             ang: -0.10, dist: 0.76 },
+    { num: '08', name: 'expert-panel',           desc: '专家会诊',             url: 'skills/expert-panel/SKILL.html',           ang:  0.28, dist: 0.90 },
+    { num: '09', name: 'first-principles',       desc: '第一性原理',           url: 'skills/first-principles/SKILL.html',       ang:  0.66, dist: 0.78 },
+    { num: '10', name: 'cross-domain-solution',  desc: '跨领域借解',           url: 'skills/cross-domain-solution/SKILL.html',  ang:  1.02, dist: 0.94 },
+    { num: '11', name: 'steelman-argument',      desc: '双向钢人论证',         url: 'skills/steelman-argument/SKILL.html',      ang:  1.38, dist: 0.82 },
+    { num: '12', name: 'minimal-experiment',     desc: '最小实验',             url: 'skills/minimal-experiment/SKILL.html',     ang:  1.72, dist: 0.96 },
+    { num: '13', name: 'talent-mining',          desc: '深度天赋挖掘',         url: 'skills/talent-mining/SKILL.html',          ang:  2.10, dist: 0.80 },
+    { num: '14', name: 'life-design',            desc: '人生设计术',           url: 'skills/life-design/SKILL.html',            ang:  2.48, dist: 0.90 }
+  ];
+
+  var orbit = document.getElementById('orbit');
+  var skillEls = [];
+  SKILLS.forEach(function (s) {
+    var a = document.createElement('a');
+    a.className = 'skill';
+    a.href = s.url;
+    a.innerHTML = '<span class="num">' + s.num + '</span><h3>' + s.name + '</h3><p>' + s.desc + '</p>';
+    orbit.appendChild(a);
+    skillEls.push({ el: a, data: s });
+  });
+
+  function layoutSkills() {
+    var cxp = W / 2;
+    var cyp = H * 0.5;
+    // 椭圆半轴（避让黑洞，黑洞吸积盘约 3.1R）
+    var rx = Math.min(W * 0.46, 620);
+    var ry = Math.min(H * 0.40, 380);
+    // 底部留白给介绍，顶部留白给标题 → 椭圆整体上移一点，但中心仍是黑洞
+    skillEls.forEach(function (item) {
+      var s = item.data;
+      var x = cxp + Math.cos(s.ang) * rx * s.dist;
+      var y = cyp + Math.sin(s.ang) * ry * s.dist;
+      // 朝向黑洞的倾斜：右侧技能向左倾（负），左侧向右倾（正）；上下技能分别朝黑洞倾
+      var tilt = -Math.sin(s.ang) * 8 + (Math.random() - 0.5) * 3;
+      // 让卡片中心对齐到目标点
+      item.el.style.left = x + 'px';
+      item.el.style.top = y + 'px';
+      item.el.style.transform = 'translate(-50%, -50%) rotate(' + tilt.toFixed(1) + 'deg)';
+      // 左右侧文字对齐
+      item.el.style.textAlign = (Math.cos(s.ang) >= 0) ? 'left' : 'right';
+    });
+  }
+  layoutSkills();
+  window.addEventListener('resize', function () { resize(); layoutSkills(); });
 
   // 光粒子（不规则大小/速度/亮度，平方分布：少数大而亮、多数小而暗）
   var P = [];
@@ -212,7 +241,7 @@
     ctx.save();
     ctx.translate(cx, cy);
     ctx.rotate(tilt + rot);
-    ctx.scale(1, 0.30);
+    ctx.scale(1, 0.42);
     var diskGrad = ctx.createRadialGradient(0, 0, R * 0.9, 0, 0, R * 3.1);
     diskGrad.addColorStop(0.00, 'rgba(255,252,246,0.92)');
     diskGrad.addColorStop(0.28, 'rgba(250,220,175,0.62)');
@@ -228,7 +257,7 @@
     // 3. 多普勒明暗
     ctx.save();
     ctx.translate(cx, cy);
-    ctx.scale(1, 0.30);
+    ctx.scale(1, 0.42);
     var dop = ctx.createLinearGradient(-R * 3.1, 0, R * 3.1, 0);
     dop.addColorStop(0.00, 'rgba(0,0,0,0.00)');
     dop.addColorStop(0.50, 'rgba(0,0,0,0.20)');
