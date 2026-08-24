@@ -10,7 +10,6 @@
 <style>
   :root {
     --bg: #08090a;
-    --panel: #0f1011;
     --text: #f7f8f8;
     --text2: #d0d6e0;
     --text3: #8a8f98;
@@ -19,74 +18,80 @@
     --ember: #e8a86b;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html, body { height: 100%; }
   body {
     color: var(--text);
     font-family: 'M PLUS Rounded 1c', -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
-    line-height: 1.85;
-    min-height: 100vh;
-    overflow-x: hidden;
+    overflow: hidden;
     background-color: var(--bg);
     background-image:
-      linear-gradient(180deg, rgba(8,9,10,.86), rgba(8,9,10,.95) 70%, rgba(8,9,10,1)),
+      linear-gradient(180deg, rgba(8,9,10,.82), rgba(8,9,10,.94) 70%, rgba(8,9,10,1)),
       url('assets/bg-stars.jpg');
     background-size: cover;
-    background-position: center top;
-    background-attachment: fixed;
+    background-position: center;
   }
-  .wrap { max-width: 820px; margin: 0 auto; padding: 44px 28px 72px; position: relative; z-index: 2; }
 
-  #bh { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+  /* 黑洞 canvas 在最上层，永远不被遮挡 */
+  #bh { position: fixed; inset: 0; z-index: 3; pointer-events: none; }
 
   .star { position: fixed; border-radius: 50%; background: #dfe4ee; pointer-events: none; z-index: 1; animation: twinkle ease-in-out infinite; }
   @keyframes twinkle { 0%,100% { opacity: .08; transform: scale(.7); } 50% { opacity: .45; transform: scale(1.1); } }
 
-  /* ===== 顶部 ===== */
-  header { text-align: center; margin-bottom: 52px; }
-  header h1 { font-size: 38px; font-weight: 800; letter-spacing: 2px; color: var(--text); }
-  header .sub { color: var(--text3); margin-top: 8px; font-size: 13px; letter-spacing: 1px; }
+  /* ===== 环绕舞台 ===== */
+  .stage {
+    position: fixed; inset: 0; z-index: 2; pointer-events: none;
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 4vh 0 3vh;
+  }
 
-  /* ===== 我的思考 ===== */
-  .about { margin-bottom: 52px; border-bottom: 1px solid var(--border-std); padding-bottom: 36px; }
-  .about h2 { font-size: 13px; font-weight: 700; letter-spacing: 3px; margin-bottom: 16px; color: var(--text3); }
-  .about p { font-size: 14.5px; margin-bottom: 12px; color: var(--text2); }
-  .about .sign { text-align: right; color: var(--text3); font-size: 12px; margin-top: 4px; }
+  /* 顶部：标题 + 副标题 */
+  .top { text-align: center; padding: 0 6vw; }
+  .top h1 { font-size: 34px; font-weight: 800; letter-spacing: 3px; color: var(--text); text-shadow: 0 0 30px rgba(0,0,0,.8); }
+  .top .sub { color: var(--text3); margin-top: 6px; font-size: 12px; letter-spacing: 2px; }
 
-  /* ===== 分区与列表（去盒子化） ===== */
-  .section { margin-top: 40px; }
-  .section h2 {
-    font-size: 12px; font-weight: 700; letter-spacing: 3px; margin-bottom: 8px;
-    color: var(--text3); text-transform: uppercase;
+  /* 中部：左右两翼技能 */
+  .orbit { position: relative; flex: 1; display: flex; justify-content: space-between; align-items: stretch; padding: 2vh 3vw; }
+  .wing {
+    width: 27%; display: flex; flex-direction: column; justify-content: space-around;
+    gap: 1.4vh; pointer-events: auto;
   }
-  .list { border-top: 1px solid var(--border-subtle); }
-  .item {
-    display: flex; align-items: baseline; gap: 20px;
-    padding: 15px 6px;
-    border-bottom: 1px solid var(--border-subtle);
-    text-decoration: none; color: var(--text);
-    transition: background .2s, padding-left .2s;
-  }
-  .item:hover {
-    background: rgba(255,255,255,0.02);
-    padding-left: 12px;
-  }
-  .item .num {
-    font-size: 12px; color: var(--text3); min-width: 26px;
-    font-variant-numeric: tabular-nums; transition: color .2s;
-  }
-  .item:hover .num { color: var(--ember); }
-  .item .body { flex: 1; }
-  .item h3 {
-    font-size: 15px; font-weight: 600; margin-bottom: 2px; color: var(--text);
-    transition: color .2s;
-  }
-  .item:hover h3 { color: var(--ember); }
-  .item p { font-size: 12.5px; color: var(--text3); }
-  .item .arrow { color: var(--text3); opacity: 0; transition: opacity .2s, transform .2s; font-size: 14px; }
-  .item:hover .arrow { opacity: 1; transform: translateX(3px); }
+  .wing.left { align-items: flex-end; text-align: right; }
+  .wing.right { align-items: flex-start; text-align: left; }
 
-  footer { margin-top: 64px; text-align: center; color: var(--text3); font-size: 12px; }
+  /* 技能条目：小卡片，朝黑洞倾斜，不规则偏移 */
+  .skill {
+    display: block; text-decoration: none;
+    padding: 7px 13px;
+    color: var(--text2);
+    border-radius: 6px;
+    transition: transform .35s cubic-bezier(.22,1.4,.36,1), color .25s, background .25s, border-color .25s;
+    border: 1px solid transparent;
+    max-width: 260px;
+  }
+  .skill:hover {
+    color: var(--ember);
+    background: rgba(232,168,107,0.05);
+    border-color: rgba(232,168,107,0.3);
+    transform: translateX(0) rotate(0deg) scale(1.06) !important;
+  }
+  .skill .num { display: block; font-size: 10px; color: var(--ember); letter-spacing: 1px; opacity: .8; }
+  .skill h3 { font-size: 13.5px; font-weight: 700; color: inherit; line-height: 1.4; }
+  .skill p { font-size: 10.5px; color: var(--text3); line-height: 1.5; margin-top: 2px; }
+
+  /* 底部：我的思考 + footer */
+  .bottom { text-align: center; padding: 0 8vw; }
+  .bottom .about { max-width: 640px; margin: 0 auto; color: var(--text2); font-size: 12.5px; line-height: 1.8; }
+  .bottom .about strong { color: var(--ember); }
+  .bottom .sign { margin-top: 8px; color: var(--text3); font-size: 11px; }
+  footer { margin-top: 12px; color: var(--text3); font-size: 11px; }
   footer a { color: var(--text2); text-decoration: none; border-bottom: 1px solid var(--border-std); }
+
+  @media (max-height: 640px) {
+    .skill h3 { font-size: 12px; }
+    .skill p { display: none; }
+    .top h1 { font-size: 26px; }
+    .bottom .about { font-size: 11px; }
+  }
 </style>
 </head>
 <body>
@@ -105,75 +110,47 @@
   <span class="star" style="width:3px;height:3px;left:82%;top:70%;animation-duration:3.5s;animation-delay:1.4s;"></span>
   <span class="star" style="width:2px;height:2px;left:30%;top:88%;animation-duration:2.9s;animation-delay:2.2s;"></span>
 
-<div class="wrap">
-  <header>
-    <h1>我的 AI 技能库</h1>
-    <p class="sub">12 个常用思考框架 · 五大场景</p>
-  </header>
+  <div class="stage">
+    <div class="top">
+      <h1>我的 AI 技能库</h1>
+      <p class="sub">12 个常用思考框架 · 五大场景</p>
+    </div>
 
-  <div class="about">
-    <h2>我的思考</h2>
-    <p>AI 时代最稀缺的能力，不是记住多少知识，而是知道<strong style="color:var(--ember)">自己想问什么</strong>、<strong style="color:var(--ember)">怎么判断真假</strong>、<strong style="color:var(--ember)">如何做出选择</strong>。</p>
-    <p>这 12 个框架是我反复使用、真正帮我解决问题的思考方式——面对混乱先问清问题，面对陌生先学会学习，面对难题先拆解本质，面对选择先摆全论证，面对自己先认识自己。</p>
-    <p>Prompt 会过时，模型会迭代，但一个人怎么提问、怎么思考、怎么认识自己——这些东西永远不会过时。</p>
-    <p class="sign">—— obi_xiao</p>
-  </div>
+    <div class="orbit">
+      <!-- 左翼：问清问题 + 学习 + 核心 -->
+      <div class="wing left">
+        <a class="skill" href="skills/socratic-questioning/SKILL.html" style="transform: rotate(2.4deg) translateX(-8px);"><span class="num">03</span><h3>socratic-questioning</h3><p>苏格拉底式提问 · 最多6个追问理清真问题</p></a>
+        <a class="skill" href="skills/dual-layer-explanation/SKILL.html" style="transform: rotate(1.6deg) translateX(-16px);"><span class="num">04</span><h3>dual-layer-explanation</h3><p>双层解释法 · 小白+专业两层讲透</p></a>
+        <a class="skill" href="skills/cross-axis-research/SKILL.html" style="transform: rotate(2.8deg) translateX(-5px);"><span class="num">05</span><h3>cross-axis-research</h3><p>横纵分析法 · 半小时搞懂陌生领域</p></a>
+        <a class="skill" href="skills/reverse-decomposition/SKILL.html" style="transform: rotate(1.2deg) translateX(-20px);"><span class="num">06</span><h3>reverse-decomposition</h3><p>反向拆解 · 从优秀成品逆向学习</p></a>
+        <a class="skill" href="skills/fact-check/SKILL.html" style="transform: rotate(2.2deg) translateX(-10px);"><span class="num">07</span><h3>fact-check</h3><p>事实核查 · 联网核实输出可信度</p></a>
+        <a class="skill" href="skills/core-framework/SKILL.html" style="transform: rotate(1.0deg) translateX(-24px);"><span class="num">01</span><h3>core-framework</h3><p>核心思考与工作框架 · 启动协议</p></a>
+        <a class="skill" href="skills/prompt-dozen/SKILL.html" style="transform: rotate(1.8deg) translateX(-14px);"><span class="num">02</span><h3>prompt-dozen</h3><p>12个提示词模板合集</p></a>
+      </div>
 
-  <div class="section">
-    <h2>核心框架</h2>
-    <div class="list">
-      <a class="item" href="skills/core-framework/SKILL.html"><span class="num">01</span><span class="body"><h3>core-framework</h3><p>核心思考与工作框架——灵魂四铁律 + 12 个剖析动作，每次工作前先激活。</p></span><span class="arrow">→</span></a>
-      <a class="item" href="skills/prompt-dozen/SKILL.html"><span class="num">02</span><span class="body"><h3>prompt-dozen</h3><p>12 个常用文字提示词模板合集，五大场景全覆盖，复制即用。</p></span><span class="arrow">→</span></a>
+      <!-- 右翼：解决问题 + 决策 + 认识自己 -->
+      <div class="wing right">
+        <a class="skill" href="skills/expert-panel/SKILL.html" style="transform: rotate(-2.2deg) translateX(10px);"><span class="num">08</span><h3>expert-panel</h3><p>专家会诊 · 3视角互相质疑出最优解</p></a>
+        <a class="skill" href="skills/first-principles/SKILL.html" style="transform: rotate(-1.4deg) translateX(18px);"><span class="num">09</span><h3>first-principles</h3><p>第一性原理 · 拆回底层重新推导</p></a>
+        <a class="skill" href="skills/cross-domain-solution/SKILL.html" style="transform: rotate(-2.6deg) translateX(6px);"><span class="num">10</span><h3>cross-domain-solution</h3><p>跨领域借解 · 遥远领域找相似解法</p></a>
+        <a class="skill" href="skills/steelman-argument/SKILL.html" style="transform: rotate(-1.1deg) translateX(22px);"><span class="num">11</span><h3>steelman-argument</h3><p>双向钢人论证 · 摆全双方最强论证</p></a>
+        <a class="skill" href="skills/minimal-experiment/SKILL.html" style="transform: rotate(-2.0deg) translateX(12px);"><span class="num">12</span><h3>minimal-experiment</h3><p>最小实验 · 低成本可逆验证假设</p></a>
+        <a class="skill" href="skills/talent-mining/SKILL.html" style="transform: rotate(-1.7deg) translateX(16px);"><span class="num">13</span><h3>talent-mining</h3><p>深度天赋挖掘 · 万字天赋说明书</p></a>
+        <a class="skill" href="skills/life-design/SKILL.html" style="transform: rotate(-2.4deg) translateX(8px);"><span class="num">14</span><h3>life-design</h3><p>人生设计术 · 三个五年人生版本</p></a>
+      </div>
+    </div>
+
+    <div class="bottom">
+      <div class="about">
+        AI 时代最稀缺的能力，不是记住多少知识，而是知道<strong>自己想问什么</strong>、<strong>怎么判断真假</strong>、<strong>如何做出选择</strong>。
+        面对混乱先问清问题，面对陌生先学会学习，面对难题先拆解本质，面对选择先摆全论证，面对自己先认识自己。
+      </div>
+      <p class="sign">—— obi_xiao</p>
+      <footer>
+        <p>© 2026 obi_xiao · <a href="https://github.com/mingxinbi112-source/OBI-xiao-skill">GitHub 仓库</a> · <a href="https://github.com/mingxinbi112-source">mingxinbi112-source</a></p>
+      </footer>
     </div>
   </div>
-
-  <div class="section">
-    <h2>问清问题</h2>
-    <div class="list">
-      <a class="item" href="skills/socratic-questioning/SKILL.html"><span class="num">03</span><span class="body"><h3>socratic-questioning</h3><p>苏格拉底式提问——最多 6 个追问，帮用户理清真正想问的问题。</p></span><span class="arrow">→</span></a>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>学习</h2>
-    <div class="list">
-      <a class="item" href="skills/dual-layer-explanation/SKILL.html"><span class="num">04</span><span class="body"><h3>dual-layer-explanation</h3><p>双层解释法——小白版 + 专业版双层讲透，附术语对照与自测题。</p></span><span class="arrow">→</span></a>
-      <a class="item" href="skills/cross-axis-research/SKILL.html"><span class="num">05</span><span class="body"><h3>cross-axis-research</h3><p>横纵分析法——纵看演化、横看竞品，半小时搞懂任何陌生领域。</p></span><span class="arrow">→</span></a>
-      <a class="item" href="skills/reverse-decomposition/SKILL.html"><span class="num">06</span><span class="body"><h3>reverse-decomposition</h3><p>反向拆解——从优秀成品逆向学习其有效原因与可复用规律。</p></span><span class="arrow">→</span></a>
-      <a class="item" href="skills/fact-check/SKILL.html"><span class="num">07</span><span class="body"><h3>fact-check</h3><p>事实核查——拆解事实/结论/价值判断，联网核实并输出可信度评估。</p></span><span class="arrow">→</span></a>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>解决问题</h2>
-    <div class="list">
-      <a class="item" href="skills/expert-panel/SKILL.html"><span class="num">08</span><span class="body"><h3>expert-panel</h3><p>专家会诊——3 种互补专业视角互相质疑，从分歧中找出最优方案。</p></span><span class="arrow">→</span></a>
-      <a class="item" href="skills/first-principles/SKILL.html"><span class="num">09</span><span class="body"><h3>first-principles</h3><p>第一性原理——拆回底层基本事实与约束，抛开惯例重新推导。</p></span><span class="arrow">→</span></a>
-      <a class="item" href="skills/cross-domain-solution/SKILL.html"><span class="num">10</span><span class="body"><h3>cross-domain-solution</h3><p>跨领域借解——从 3 个以上遥远领域找相似解法，翻译回当前处境。</p></span><span class="arrow">→</span></a>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>决策</h2>
-    <div class="list">
-      <a class="item" href="skills/steelman-argument/SKILL.html"><span class="num">11</span><span class="body"><h3>steelman-argument</h3><p>双向钢人论证——两个选项各自的最强论证摆全，找出关键变量。</p></span><span class="arrow">→</span></a>
-      <a class="item" href="skills/minimal-experiment/SKILL.html"><span class="num">12</span><span class="body"><h3>minimal-experiment</h3><p>最小实验替代空想——找出关键假设，设计低成本可逆实验。</p></span><span class="arrow">→</span></a>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>认识自己</h2>
-    <div class="list">
-      <a class="item" href="skills/talent-mining/SKILL.html"><span class="num">13</span><span class="body"><h3>talent-mining</h3><p>深度天赋挖掘——基于盖洛普/心流/荣格心理学，输出万字天赋说明书。</p></span><span class="arrow">→</span></a>
-      <a class="item" href="skills/life-design/SKILL.html"><span class="num">14</span><span class="body"><h3>life-design</h3><p>人生设计术——斯坦福人生设计方法，产出三个五年人生版本。</p></span><span class="arrow">→</span></a>
-    </div>
-  </div>
-
-  <footer>
-    <p>© 2026 obi_xiao · OBI Skill Hub</p>
-    <p style="margin-top:8px;"><a href="https://github.com/mingxinbi112-source/OBI-xiao-skill">GitHub 仓库</a> · <a href="https://github.com/mingxinbi112-source">mingxinbi112-source</a></p>
-  </footer>
-</div>
 
 <script>
 (function () {
@@ -185,7 +162,7 @@
     W = canvas.width = window.innerWidth;
     H = canvas.height = window.innerHeight;
     cx = W / 2;
-    cy = H * 0.64;
+    cy = H * 0.5;
     R = Math.min(W, H) * 0.07;
   }
   resize();
@@ -193,29 +170,18 @@
 
   // 光粒子（不规则大小/速度/亮度，平方分布：少数大而亮、多数小而暗）
   var P = [];
-  function rnd2() { var r = Math.random(); return r * r; }   // 平方分布，偏向小值
+  function rnd2() { var r = Math.random(); return r * r; }
   function spawn() {
     var ang = Math.random() * Math.PI * 2;
     var d = Math.max(W, H) * (0.5 + Math.random() * 0.4);
-    // 大小：0.3 ~ 3.2，平方分布让大多数是小粒子
     var size = 0.3 + rnd2() * 2.9;
-    // 亮度：0.08 ~ 0.95，平方分布让大多数微亮、少数很亮
     var alpha = 0.08 + rnd2() * 0.87;
-    // 速度：0.15 ~ 2.4，不均匀
     var speed = 0.15 + rnd2() * 2.25;
-    // 颜色：大亮粒子偏暖白，小粒子偏冷白/淡蓝，少量暖橙
     var c;
-    if (size > 1.8) c = '255,238,215';                       // 大而亮 → 暖白
-    else if (Math.random() < 0.15) c = '232,168,107';        // 少量暖橙
-    else c = '208,220,238';                                  // 冷白淡蓝
-    return {
-      x: cx + Math.cos(ang) * d,
-      y: cy + Math.sin(ang) * d,
-      size: size,
-      speed: speed,
-      alpha: alpha,
-      color: c
-    };
+    if (size > 1.8) c = '255,238,215';
+    else if (Math.random() < 0.15) c = '232,168,107';
+    else c = '208,220,238';
+    return { x: cx + Math.cos(ang) * d, y: cy + Math.sin(ang) * d, size: size, speed: speed, alpha: alpha, color: c };
   }
   for (var i = 0; i < 150; i++) P.push(spawn());
 
@@ -224,11 +190,10 @@
     t++;
     ctx.clearRect(0, 0, W, H);
 
-    // 固定倾角（Gargantua 那种盘面倾斜）
     var tilt = -0.25;
-    var rot = t * 0.0025;   // 缓慢自转
+    var rot = t * 0.0025;
 
-    // ===== 1. 引力透镜光环（正圆环带，上下对称，Interstellar 上下光晕来源）=====
+    // 1. 引力透镜光环
     ctx.save();
     ctx.translate(cx, cy);
     var ringGrad = ctx.createRadialGradient(0, 0, R * 1.28, 0, 0, R * 1.72);
@@ -243,15 +208,15 @@
     ctx.fill();
     ctx.restore();
 
-    // ===== 2. 吸积盘（压扁 3D 椭圆，暖色温度梯度，旋转）=====
+    // 2. 吸积盘（3D 椭圆）
     ctx.save();
     ctx.translate(cx, cy);
     ctx.rotate(tilt + rot);
     ctx.scale(1, 0.30);
     var diskGrad = ctx.createRadialGradient(0, 0, R * 0.9, 0, 0, R * 3.1);
-    diskGrad.addColorStop(0.00, 'rgba(255,252,246,0.92)');  // 内圈白热
-    diskGrad.addColorStop(0.28, 'rgba(250,220,175,0.62)');  // 暖金
-    diskGrad.addColorStop(0.56, 'rgba(238,178,112,0.32)');  // 暖橙
+    diskGrad.addColorStop(0.00, 'rgba(255,252,246,0.92)');
+    diskGrad.addColorStop(0.28, 'rgba(250,220,175,0.62)');
+    diskGrad.addColorStop(0.56, 'rgba(238,178,112,0.32)');
     diskGrad.addColorStop(0.82, 'rgba(185,120,75,0.12)');
     diskGrad.addColorStop(1.00, 'rgba(170,110,70,0.00)');
     ctx.fillStyle = diskGrad;
@@ -260,7 +225,7 @@
     ctx.fill();
     ctx.restore();
 
-    // ===== 3. 多普勒明暗（固定水平方向：左侧朝向更亮，右侧远离更暗）=====
+    // 3. 多普勒明暗
     ctx.save();
     ctx.translate(cx, cy);
     ctx.scale(1, 0.30);
@@ -275,7 +240,7 @@
     ctx.fill();
     ctx.restore();
 
-    // ===== 4. 光子环（极细亮环，紧贴视界，轻微呼吸）=====
+    // 4. 光子环
     var photon = 0.45 + 0.15 * Math.sin(t * 0.02);
     ctx.save();
     ctx.beginPath();
@@ -287,7 +252,7 @@
     ctx.stroke();
     ctx.restore();
 
-    // ===== 5. 粒子飞入视界（靠近变亮 + 大粒子光晕）=====
+    // 5. 粒子飞入视界
     for (var k = 0; k < P.length; k++) {
       var p = P[k];
       var dx = cx - p.x, dy = cy - p.y;
@@ -297,13 +262,11 @@
       p.y += (dy / dist) * p.speed * accel;
       p.size *= 0.9992;
       if (dist < R * 1.02 || p.size < 0.06) { P[k] = spawn(); continue; }
-      // 靠近视界时增亮（被吸积盘照亮）
       var glowBoost = 1 + 2.2 * Math.max(0, 1 - dist / (R * 5));
       var a = Math.min(1, p.alpha * glowBoost);
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
       ctx.fillStyle = 'rgba(' + p.color + ',' + a + ')';
-      // 大粒子带柔光晕，小粒子就是纯点
       if (p.size > 1.6) {
         ctx.shadowColor = 'rgba(' + p.color + ',0.85)';
         ctx.shadowBlur = p.size * 3.2;
@@ -314,12 +277,12 @@
     }
     ctx.shadowBlur = 0;
 
-    // ===== 6. 事件视界（黑球 + 边缘暖色反射，球体立体感）=====
+    // 6. 事件视界（球体）
     ctx.save();
     var bhGrad = ctx.createRadialGradient(cx - R * 0.35, cy - R * 0.35, R * 0.1, cx, cy, R);
     bhGrad.addColorStop(0.00, '#000000');
     bhGrad.addColorStop(0.80, '#000000');
-    bhGrad.addColorStop(0.93, 'rgba(110,64,38,0.30)');   // 边缘被吸积盘照亮
+    bhGrad.addColorStop(0.93, 'rgba(110,64,38,0.30)');
     bhGrad.addColorStop(1.00, 'rgba(190,130,80,0.50)');
     ctx.fillStyle = bhGrad;
     ctx.beginPath();
