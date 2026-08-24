@@ -1,6 +1,6 @@
 # OBI Skill Hub · 我的 AI 技能库
 
-> 作者：毕笑笑（OBI）· GitHub: [mingxinbi112-source](https://github.com/mingxinbi112-source)
+> 作者：obi_xiao（OBI）· GitHub: [mingxinbi112-source](https://github.com/mingxinbi112-source)
 
 ## 📦 这是什么
 

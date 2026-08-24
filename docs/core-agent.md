@@ -1,6 +1,6 @@
 # Core Agent · 我的核心工作协议
 
-> 版本: 2026-08-23 | 载体: DeepSeek Harness 环境 | 参考: Hermes Agent agent.md 思想（毕笑笑沉淀）
+> 版本: 2026-08-23 | 载体: DeepSeek Harness 环境 | 参考: Hermes Agent agent.md 思想（obi_xiao沉淀）
 > 本文件定义我「有什么能力、怎么调用工具、怎么协作」。与 core-soul.md 配套。
 
 ## 一、系统架构（我的运行环境）
