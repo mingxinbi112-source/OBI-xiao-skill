@@ -49,6 +49,44 @@
   .star { position: fixed; border-radius: 50%; background: #dffcff; pointer-events: none; z-index: 0; animation: twinkle ease-in-out infinite; }
   @keyframes twinkle { 0%,100% { opacity: .1; transform: scale(.7); } 50% { opacity: .8; transform: scale(1.15); } }
 
+  /* ===== 黑洞吸入 ===== */
+  #blackhole { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .bh-core {
+    position: absolute; left: 50%; top: 50%;
+    width: 150px; height: 150px; margin: -75px 0 0 -75px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #000 0%, rgba(0,0,0,.75) 42%, rgba(57,197,187,.08) 60%, transparent 70%);
+    box-shadow: 0 0 60px rgba(57,197,187,.22);
+  }
+  .bh-ring {
+    position: absolute; left: 50%; top: 50%;
+    width: 230px; height: 230px; margin: -115px 0 0 -115px;
+    border-radius: 50%;
+    border: 1px solid rgba(57,197,187,.4);
+    animation: bhSpin 9s linear infinite;
+  }
+  .bh-ring::before {
+    content: ""; position: absolute; inset: -7px; border-radius: 50%;
+    border: 1px dashed rgba(255,158,199,.28);
+    animation: bhSpin 16s linear infinite reverse;
+  }
+  @keyframes bhSpin { to { transform: rotate(360deg); } }
+  .bs {
+    position: absolute; left: 50%; top: 50%;
+    border-radius: 50%;
+    background: #dffcff;
+    box-shadow: 0 0 8px rgba(134,227,220,.95);
+    animation: bhSuck var(--dur) linear infinite;
+    animation-delay: var(--delay);
+    opacity: 0;
+  }
+  @keyframes bhSuck {
+    0% { transform: translate(var(--sx), var(--sy)) scale(1.3); opacity: 0; }
+    8% { opacity: 1; }
+    70% { opacity: .85; }
+    100% { transform: translate(0, 0) scale(.04); opacity: 0; }
+  }
+
   /* ===== 顶部 ===== */
   header { text-align: center; margin-bottom: 48px; position: relative; z-index: 1; }
   .hero { display: flex; flex-direction: column; align-items: center; }
@@ -144,8 +182,7 @@
   <span class="float-note" style="left:85%; animation-duration:18s; animation-delay:3s; font-size:24px;">✦</span>
   <span class="float-note" style="left:92%; animation-duration:15s; animation-delay:6s; font-size:17px;">♫</span>
   <!-- 星光粒子 -->
-  <span class="star" style="width:3px;height:3px;left:8%;top:18%;animation-duration:2.8s;animation-delay:0s;"></span>
-  <span class="star" style="width:2px;height:2px;left:22%;top:35%;animation-duration:3.4s;animation-delay:1s;"></span>
+  <span class="star" style="width:3px;height:3px;left:8%;top:18%;animation-duration:2.8s;animation-delay:0s;"></span>  <span class="star" style="width:2px;height:2px;left:22%;top:35%;animation-duration:3.4s;animation-delay:1s;"></span>
   <span class="star" style="width:4px;height:4px;left:38%;top:12%;animation-duration:2.2s;animation-delay:.5s;"></span>
   <span class="star" style="width:2px;height:2px;left:52%;top:45%;animation-duration:3.8s;animation-delay:1.6s;"></span>
   <span class="star" style="width:3px;height:3px;left:66%;top:22%;animation-duration:2.6s;animation-delay:.8s;"></span>
@@ -156,6 +193,12 @@
   <span class="star" style="width:2px;height:2px;left:60%;top:78%;animation-duration:2.9s;animation-delay:.6s;"></span>
   <span class="star" style="width:3px;height:3px;left:82%;top:70%;animation-duration:3.3s;animation-delay:1.4s;"></span>
   <span class="star" style="width:2px;height:2px;left:30%;top:88%;animation-duration:2.7s;animation-delay:2.2s;"></span>
+
+  <!-- 黑洞吸入效果 -->
+  <div id="blackhole">
+    <div class="bh-core"></div>
+    <div class="bh-ring"></div>
+  </div>
 
 <div class="wrap">
   <header>
@@ -237,5 +280,29 @@
     <p class="note-line">♪ 未来へ、一緒に ♪</p>
   </footer>
 </div>
+<script>
+  (function () {
+    var bh = document.getElementById('blackhole');
+    var COUNT = 90;
+    for (var i = 0; i < COUNT; i++) {
+      var s = document.createElement('span');
+      s.className = 'bs';
+      var ang = Math.random() * Math.PI * 2;
+      var dist = Math.max(window.innerWidth, window.innerHeight) * (0.45 + Math.random() * 0.75);
+      var sx = Math.cos(ang) * dist;
+      var sy = Math.sin(ang) * dist;
+      var dur = 2 + Math.random() * 4;
+      var delay = -Math.random() * dur;
+      var size = 1 + Math.random() * 2.4;
+      s.style.setProperty('--sx', sx + 'px');
+      s.style.setProperty('--sy', sy + 'px');
+      s.style.setProperty('--dur', dur + 's');
+      s.style.setProperty('--delay', delay + 's');
+      s.style.width = size + 'px';
+      s.style.height = size + 'px';
+      bh.appendChild(s);
+    }
+  })();
+</script>
 </body>
 </html>
