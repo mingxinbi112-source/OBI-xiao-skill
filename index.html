@@ -4,18 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OBI · 我的 AI 技能库</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --miku: #39c5bb;          /* 初音青 */
-    --miku-bright: #86e3dc;   /* 亮青 */
-    --miku-deep: #1d6f6a;     /* 深青 */
-    --bg: #0a0f14;            /* 深色底 */
-    --bg2: #0e1620;
+    --miku: #39c5bb;
+    --miku-bright: #86e3dc;
+    --miku-deep: #1d6f6a;
+    --bg: #0a0f14;
     --card: #101a24;
     --border: rgba(57,197,187,.25);
     --text: #e6f7f5;
     --muted: #7fa8a5;
-    --pink: #ff9ec7;          /* Miku 点缀粉 */
+    --pink: #ff9ec7;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -24,39 +26,48 @@
       radial-gradient(ellipse 80% 50% at 50% -10%, rgba(57,197,187,.15), transparent),
       linear-gradient(180deg, #0a0f14, #080c10);
     color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
-    line-height: 1.7;
+    font-family: 'M PLUS Rounded 1c', -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.8;
     min-height: 100vh;
+    overflow-x: hidden;
   }
-  .wrap { max-width: 960px; margin: 0 auto; padding: 48px 24px 80px; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 48px 24px 80px; position: relative; }
+
+  /* ===== 漂浮音符 ===== */
+  .float-note { position: fixed; color: var(--miku-bright); opacity: .3; pointer-events: none; z-index: 0; animation: floatUp linear infinite; }
+  @keyframes floatUp {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10% { opacity: .35; }
+    90% { opacity: .25; }
+    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+  }
 
   /* ===== 顶部 ===== */
-  header { text-align: center; margin-bottom: 56px; }
-  .logo { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 16px; }
-  .logo-note { font-size: 26px; color: var(--miku-bright); text-shadow: 0 0 14px rgba(57,197,187,.8); animation: pulse 2.2s ease-in-out infinite; }
-  .logo-text { font-size: 13px; letter-spacing: 4px; color: var(--muted); text-transform: uppercase; }
-  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .55; } }
+  header { text-align: center; margin-bottom: 48px; position: relative; z-index: 1; }
+  .hero { display: flex; flex-direction: column; align-items: center; }
+  .chara { margin-bottom: 8px; filter: drop-shadow(0 0 22px rgba(57,197,187,.4)); animation: bob 3.5s ease-in-out infinite; }
+  @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
   header h1 {
-    font-size: 44px; font-weight: 800; letter-spacing: 2px;
+    font-size: 46px; font-weight: 800; letter-spacing: 2px;
     background: linear-gradient(135deg, var(--miku-bright), var(--miku) 55%, var(--pink));
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 30px rgba(57,197,187,.25);
+    filter: drop-shadow(0 0 14px rgba(57,197,187,.35));
   }
-  header .sub { color: var(--muted); margin-top: 12px; font-size: 16px; }
+  header .sub { color: var(--muted); margin-top: 10px; font-size: 15px; letter-spacing: 1px; }
   .badge {
     display: inline-block; margin-top: 16px; padding: 4px 16px;
     border: 1px solid var(--border); border-radius: 999px;
     color: var(--miku-bright); font-size: 13px; background: rgba(57,197,187,.07);
     box-shadow: 0 0 12px rgba(57,197,187,.15);
   }
-  .stats { display: flex; justify-content: center; gap: 44px; margin: 36px 0 8px; }
+  .stats { display: flex; justify-content: center; gap: 44px; margin: 32px 0 8px; }
   .stat { text-align: center; }
   .stat b { display: block; font-size: 30px; color: var(--miku-bright); text-shadow: 0 0 16px rgba(57,197,187,.5); }
   .stat span { font-size: 13px; color: var(--muted); }
 
   /* ===== 我的思考 ===== */
   .about {
-    position: relative;
+    position: relative; z-index: 1;
     background: linear-gradient(135deg, rgba(57,197,187,.10), rgba(255,158,199,.05));
     border: 1px solid var(--border);
     border-radius: 16px; padding: 28px 32px; margin-bottom: 48px;
@@ -71,14 +82,14 @@
   .about .sign { text-align: right; color: var(--muted); font-size: 13px; margin-top: 4px; }
 
   /* ===== 分区与卡片 ===== */
-  .section { margin-top: 40px; }
+  .section { margin-top: 40px; position: relative; z-index: 1; }
   .section h2 {
     font-size: 18px; font-weight: 700; margin-bottom: 16px;
     padding-left: 12px; border-left: 4px solid var(--miku);
   }
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
   .card {
-    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
     padding: 18px 20px; text-decoration: none; color: var(--text);
     transition: transform .15s, border-color .15s, box-shadow .15s; display: block;
   }
@@ -87,27 +98,65 @@
     border-color: var(--miku);
     box-shadow: 0 0 20px rgba(57,197,187,.25);
   }
-  .card h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; color: var(--miku-bright); }
+  .card h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; color: var(--miku-bright); }
   .card p { font-size: 13px; color: var(--muted); }
   .tag { display: inline-block; font-size: 11px; padding: 1px 8px; border-radius: 999px; margin-bottom: 8px; }
   .t-miku { background: rgba(57,197,187,.14); color: var(--miku-bright); }
   .t-pink { background: rgba(255,158,199,.14); color: var(--pink); }
   .t-gray { background: rgba(127,168,165,.14); color: var(--muted); }
 
-  footer { margin-top: 64px; text-align: center; color: var(--muted); font-size: 13px; }
+  footer { margin-top: 64px; text-align: center; color: var(--muted); font-size: 13px; position: relative; z-index: 1; }
   footer a { color: var(--miku-bright); text-decoration: none; }
-  footer .miku-line { margin-top: 14px; letter-spacing: 2px; color: rgba(57,197,187,.5); font-size: 18px; }
+  footer .note-line { margin-top: 14px; letter-spacing: 3px; color: rgba(57,197,187,.5); font-size: 16px; }
 </style>
 </head>
 <body>
+  <span class="float-note" style="left:5%; animation-duration:12s; animation-delay:0s; font-size:22px;">♪</span>
+  <span class="float-note" style="left:15%; animation-duration:16s; animation-delay:2s; font-size:16px;">♫</span>
+  <span class="float-note" style="left:30%; animation-duration:13s; animation-delay:5s; font-size:18px;">✦</span>
+  <span class="float-note" style="left:55%; animation-duration:17s; animation-delay:1s; font-size:20px;">♬</span>
+  <span class="float-note" style="left:70%; animation-duration:14s; animation-delay:4s; font-size:15px;">♪</span>
+  <span class="float-note" style="left:85%; animation-duration:18s; animation-delay:3s; font-size:24px;">✦</span>
+  <span class="float-note" style="left:92%; animation-duration:15s; animation-delay:6s; font-size:17px;">♫</span>
+
 <div class="wrap">
   <header>
-    <div class="logo">
-      <span class="logo-note">♪</span>
-      <span class="logo-text">OBI · Skill Hub</span>
-      <span class="logo-note">♫</span>
+    <div class="hero">
+      <svg class="chara" width="170" height="200" viewBox="0 0 220 250" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="hair" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#86e3dc"/>
+            <stop offset="1" stop-color="#39c5bb"/>
+          </linearGradient>
+        </defs>
+        <!-- 双马尾 -->
+        <path d="M78 46 C 38 34, 12 74, 18 112 C 20 132, 34 146, 48 143 C 42 121, 46 92, 68 70 Z" fill="url(#hair)"/>
+        <path d="M142 46 C 182 34, 208 74, 202 112 C 200 132, 186 146, 172 143 C 178 121, 174 92, 152 70 Z" fill="url(#hair)"/>
+        <!-- 身体 -->
+        <path d="M76 118 Q110 108 144 118 L140 178 Q110 190 80 178 Z" fill="url(#hair)" opacity="0.75"/>
+        <!-- 头 -->
+        <circle cx="110" cy="80" r="44" fill="url(#hair)"/>
+        <!-- 脸 -->
+        <ellipse cx="110" cy="86" rx="33" ry="28" fill="#ffe9dd"/>
+        <!-- 刘海 -->
+        <path d="M66 72 Q74 50 88 56 Q96 42 108 52 Q118 40 128 54 Q140 48 150 70 Q154 78 148 82 Q120 72 110 76 Q92 70 70 80 Q64 78 66 72 Z" fill="url(#hair)"/>
+        <!-- 呆毛 -->
+        <path d="M110 42 Q 111 26 122 21" stroke="#86e3dc" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <!-- 眼睛 -->
+        <ellipse cx="92" cy="90" rx="7" ry="10" fill="#2b3a4a"/>
+        <circle cx="95" cy="86" r="3" fill="#fff"/>
+        <ellipse cx="128" cy="90" rx="7" ry="10" fill="#2b3a4a"/>
+        <circle cx="131" cy="86" r="3" fill="#fff"/>
+        <!-- 腮红 -->
+        <ellipse cx="78" cy="100" rx="7" ry="4" fill="#ffb3c7" opacity="0.75"/>
+        <ellipse cx="142" cy="100" rx="7" ry="4" fill="#ffb3c7" opacity="0.75"/>
+        <!-- 嘴 -->
+        <path d="M106 102 Q110 107 114 102" stroke="#e08a9a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- 音符装饰 -->
+        <text x="168" y="42" font-size="22" fill="#86e3dc" opacity="0.85">♪</text>
+      </svg>
+      <h1>我的 AI 技能库</h1>
     </div>
-    <h1>我的 AI 技能库</h1>
     <p class="sub">12 个常用思考框架 · 五大场景：问清问题 / 学习 / 解决问题 / 决策 / 认识自己</p>
     <span class="badge">💡 14 个技能 · 全部可直接套用</span>
     <div class="stats">
@@ -179,7 +228,7 @@
   <footer>
     <p>© 2026 obi_xiao · OBI Skill Hub</p>
     <p style="margin-top:8px;"><a href="https://github.com/mingxinbi112-source/OBI-xiao-skill">GitHub 仓库</a> · <a href="https://github.com/mingxinbi112-source">mingxinbi112-source</a></p>
-    <p class="miku-line">♪ 世界第一的公主殿下 ♪</p>
+    <p class="note-line">♪ 未来へ、一緒に ♪</p>
   </footer>
 </div>
 </body>
