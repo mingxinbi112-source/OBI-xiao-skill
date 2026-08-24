@@ -1,21 +1,57 @@
-# My Skills
+# My Skills · 我的技能仓库
 
-这是我的 skills（技能）仓库。
+> 作者：mingxinbi112-source（毕笑笑）
+> 来源文章：《都 Agent 时代了，我还是想分享给你这 12 个我最常用的 Prompt》（作者：数字生命卡兹克）
 
-## 目录结构
+## 📦 这是什么
+
+把 12 个常用 Prompt 整理成 14 个可复用技能（Skill），覆盖 5 大场景：
+**问清问题 · 学习 · 解决问题 · 决策 · 认识自己**。
+
+每个技能都是标准 SKILL.md 格式，可直接使用。
+
+## 🗂 目录结构
 
 ```
 my-skills/
-├── README.md          # 本文件，仓库说明
-└── skills/            # 所有技能放这里
-    └── hello-skill/   # 示例技能
-        └── SKILL.md   # 技能说明文件
+├── README.md              # 本文件
+├── docs/                  # 核心文档
+│   ├── 12-prompt-methods.md   # 12 个剖析动作详解
+│   ├── core-agent.md          # Agent 工作协议
+│   └── core-soul.md           # Agent 核心灵魂
+└── skills/                # 14 个技能
+    ├── core-framework/        # 核心思考与工作框架（启动协议）
+    ├── socratic-questioning/  # 苏格拉底式提问
+    ├── dual-layer-explanation/# 双层解释法
+    ├── cross-axis-research/   # 横纵分析法
+    ├── reverse-decomposition/ # 反向拆解
+    ├── fact-check/            # 事实核查
+    ├── expert-panel/          # 专家会诊
+    ├── first-principles/      # 第一性原理
+    ├── cross-domain-solution/ # 跨领域借解
+    ├── steelman-argument/     # 双向钢人论证
+    ├── minimal-experiment/    # 最小实验
+    ├── talent-mining/         # 深度天赋挖掘
+    ├── life-design/           # 人生设计术
+    └── prompt-dozen/          # 12 个 Prompt 模板合集
 ```
 
-## 如何添加新技能
+## 🚀 如何使用
 
-在 `skills/` 下新建一个文件夹，里面放一个 `SKILL.md` 文件即可。
+1. 打开任意技能的 `SKILL.md`，复制里面的模板；
+2. 把 `【】` 里的占位符换成你自己的信息；
+3. 粘贴给任意 AI 使用。
 
-## 发布说明
+## 🛠 如何更新
 
-本仓库对应 GitHub 上的 `OBI-xiao-skill` 仓库。
+```bash
+# 添加新技能：在 skills/ 下新建文件夹，放 SKILL.md
+# 提交并推送
+git add -A
+git commit -m "添加新技能"
+git push
+```
+
+## 📄 许可证
+
+个人学习使用。内容整理自卡兹克公开文章，如涉及版权请联系作者。
