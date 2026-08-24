@@ -1,14 +1,13 @@
-# My Skills · 我的技能仓库
+# OBI Skill Hub · 我的 AI 技能库
 
-> 作者：mingxinbi112-source（毕笑笑）
-> 来源文章：《都 Agent 时代了，我还是想分享给你这 12 个我最常用的 Prompt》（作者：数字生命卡兹克）
+> 作者：毕笑笑（OBI）· GitHub: [mingxinbi112-source](https://github.com/mingxinbi112-source)
 
 ## 📦 这是什么
 
-把 12 个常用 Prompt 整理成 14 个可复用技能（Skill），覆盖 5 大场景：
+我反复使用、真正帮我解决问题的 12 个思考框架，整理成 14 个可复用技能（Skill），覆盖 5 大场景：
 **问清问题 · 学习 · 解决问题 · 决策 · 认识自己**。
 
-每个技能都是标准 SKILL.md 格式，可直接使用。
+每个技能都是标准 SKILL.md 格式，可直接套用。
 
 ## 🗂 目录结构
 
@@ -52,6 +51,10 @@ git commit -m "添加新技能"
 git push
 ```
 
+## 🌐 在线页面
+
+GitHub Pages：https://mingxinbi112-source.github.io/OBI-xiao-skill/
+
 ## 📄 许可证
 
-个人学习使用。内容整理自卡兹克公开文章，如涉及版权请联系作者。
+个人学习使用。

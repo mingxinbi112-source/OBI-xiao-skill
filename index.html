@@ -3,24 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Skills · 我的 AI 技能库</title>
+<title>OBI · 我的 AI 技能库</title>
 <style>
   :root {
-    --bg: #0f1117; --card: #1a1d27; --border: #2a2f3d;
-    --text: #e8eaf0; --muted: #9aa0b0; --accent: #6c8cff;
-    --green: #4ade80; --yellow: #fbbf24; --red: #f87171;
+    --bg: #0a0e17; --bg2: #0f1524; --card: #131a2b; --border: #1e2a45;
+    --text: #e8ecf5; --muted: #8b95ad; --accent: #7c6cff; --accent2: #4cc9f0;
+    --green: #4ade80; --yellow: #fbbf24; --red: #f87171; --purple: #a78bfa;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; line-height: 1.7; }
   .wrap { max-width: 960px; margin: 0 auto; padding: 48px 24px 80px; }
-  header { text-align: center; margin-bottom: 48px; }
-  header h1 { font-size: 40px; font-weight: 800; letter-spacing: 1px; background: linear-gradient(135deg, #6c8cff, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+  header { text-align: center; margin-bottom: 56px; position: relative; }
+  .logo { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+  .logo-dot { width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow: 0 0 18px rgba(124,108,255,.6); }
+  .logo-text { font-size: 13px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; }
+  header h1 { font-size: 42px; font-weight: 800; letter-spacing: 1px; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
   header p { color: var(--muted); margin-top: 12px; font-size: 16px; }
   .badge { display: inline-block; margin-top: 16px; padding: 4px 14px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); font-size: 13px; background: var(--card); }
-  .stats { display: flex; justify-content: center; gap: 32px; margin: 32px 0 8px; }
+  .stats { display: flex; justify-content: center; gap: 40px; margin: 36px 0 8px; }
   .stat { text-align: center; }
-  .stat b { display: block; font-size: 28px; color: var(--accent); }
+  .stat b { display: block; font-size: 30px; color: var(--accent); }
   .stat span { font-size: 13px; color: var(--muted); }
+
+  .about { background: linear-gradient(135deg, rgba(124,108,255,.08), rgba(76,201,240,.06)); border: 1px solid var(--border); border-radius: 16px; padding: 28px 32px; margin-bottom: 48px; }
+  .about h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; color: var(--accent2); }
+  .about p { font-size: 14.5px; color: var(--text); margin-bottom: 12px; }
+  .about .sign { text-align: right; color: var(--muted); font-size: 13px; margin-top: 4px; }
+
   .section { margin-top: 40px; }
   .section h2 { font-size: 18px; font-weight: 700; margin-bottom: 16px; padding-left: 12px; border-left: 4px solid var(--accent); }
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
@@ -34,6 +44,7 @@
   .t-yellow { background: rgba(251,191,36,.12); color: #fcd34d; }
   .t-red { background: rgba(248,113,113,.12); color: #fca5a5; }
   .t-purple { background: rgba(167,139,250,.12); color: #c4b5fd; }
+
   footer { margin-top: 64px; text-align: center; color: var(--muted); font-size: 13px; }
   footer a { color: var(--accent); text-decoration: none; }
 </style>
@@ -41,15 +52,28 @@
 <body>
 <div class="wrap">
   <header>
-    <h1>My Skills · 我的 AI 技能库</h1>
-    <p>12 个常用 Prompt 技能化 · 五大场景：问清问题 / 学习 / 解决问题 / 决策 / 认识自己</p>
+    <div class="logo">
+      <span class="logo-dot"></span>
+      <span class="logo-text">OBI · Skill Hub</span>
+    </div>
+    <h1>我的 AI 技能库</h1>
+    <p>12 个常用思考框架 · 五大场景：问清问题 / 学习 / 解决问题 / 决策 / 认识自己</p>
     <span class="badge">💡 14 个技能 · 全部可直接套用</span>
     <div class="stats">
       <div class="stat"><b>5</b><span>大场景</span></div>
-      <div class="stat"><b>12</b><span>核心 Prompt</span></div>
+      <div class="stat"><b>12</b><span>核心框架</span></div>
       <div class="stat"><b>14</b><span>可复用技能</span></div>
     </div>
   </header>
+
+  <div class="about">
+    <h2>我的思考</h2>
+    <p>AI 时代最稀缺的能力，不是记住多少知识，而是知道<strong>自己想问什么</strong>、<strong>怎么判断真假</strong>、<strong>如何做出选择</strong>。</p>
+    <p>这 12 个框架是我反复使用、真正帮我解决问题的思考方式——我把它们整理成 14 个可复用技能：</p>
+    <p>面对混乱，先问清问题；面对陌生，先学会学习；面对难题，先拆解本质；面对选择，先摆全论证；面对自己，先认识自己。</p>
+    <p>Prompt 会过时，模型会迭代，但一个人<strong>怎么提问、怎么思考、怎么认识自己</strong>——这些东西永远不会过时。</p>
+    <p class="sign">—— 毕笑笑</p>
+  </div>
 
   <div class="section">
     <h2>🧠 核心框架</h2>
@@ -102,8 +126,8 @@
   </div>
 
   <footer>
-    <p>内容整理自卡兹克《12 个我最常用的 Prompt》 · 作者：<a href="https://github.com/mingxinbi112-source">mingxinbi112-source</a></p>
-    <p style="margin-top:8px;"><a href="https://github.com/mingxinbi112-source/OBI-xiao-skill">查看 GitHub 仓库</a></p>
+    <p>© 2026 毕笑笑 · OBI Skill Hub</p>
+    <p style="margin-top:8px;"><a href="https://github.com/mingxinbi112-source/OBI-xiao-skill">GitHub 仓库</a> · <a href="https://github.com/mingxinbi112-source">mingxinbi112-source</a></p>
   </footer>
 </div>
 </body>
