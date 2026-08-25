@@ -6,7 +6,7 @@ whenToUse: 当用户要做 AI 企业/B 端场景的落地、交付、评估(签�
 
 # AI B 端 FDE 交付评估工作流
 
-> FDE(Forward Deployed Engineer) 从现场到钱箱的 AI 企业级交付方法论:四阶段工作流 + Go/Hold/No-Go 评估关卡 + 15 个 playbook 深入展开。
+> FDE(Forward Deployed Engineer) 从现场到钱箱的 AI 企业级交付方法论:四阶段工作流 + Go/Hold/No-Go 评估关卡 + 14 个 references playbook 深入展开。
 
 ## 何时使用
 

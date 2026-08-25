@@ -71,7 +71,7 @@ whenToUse: 何时使用此技能
 - Prompt 模板一律用 ` ```text ` 代码块包裹（方便一键复制）
 - 长技能（life-design / talent-mining）用完整角色指令，多轮对话式
 - 合集（prompt-dozen）内含 12 个模板，每个模板都是独立代码块
-- 例外：`fde-ai-b2b-delivery` 是**方法论型技能**（不是填空式 Prompt），正文是四阶段交付工作流 + Go/No-Go 关卡，并带 `references/` 子目录存放 15 个深入 playbook，用相对路径在正文引用。
+- 例外：`fde-ai-b2b-delivery` 是**方法论型技能**（不是填空式 Prompt），正文是四阶段交付工作流 + Go/No-Go 关卡，并带 `references/` 子目录存放 14 个深入 playbook，用相对路径在正文引用。
 
 ## 🚀 如何使用
 
