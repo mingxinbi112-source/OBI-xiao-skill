@@ -1,11 +1,11 @@
 # OBI Skill Hub · 我的 AI 技能库
 
 > 作者：obi_xiao（OBI）· GitHub: [mingxinbi112-source](https://github.com/mingxinbi112-source)
-> 一句话：我反复使用、真正帮我解决问题的 12 个思考框架，整理成 14 个可复用技能（Skill）。
+> 一句话：我反复使用、真正帮我解决问题的 12 个思考框架，整理成 14 个思考技能 + 1 个 FDE 企业级交付方法论（共 15 个可复用技能）。
 
 ## 📦 这是什么
 
-14 个可复用技能，覆盖 **5 大场景**：问清问题 · 学习 · 解决问题 · 决策 · 认识自己。
+15 个可复用技能：14 个思考框架覆盖 **5 大场景**（问清问题 · 学习 · 解决问题 · 决策 · 认识自己），另有 1 个 **FDE 企业级 AI 交付方法论**（AI 在企业/B 端怎么真正落地、Go/No-Go 评估、权限禁区、决策闭环）。
 每个技能是独立的 `SKILL.md`，**全部用标准 Markdown 书写**，Prompt 模板用 ``` 代码块包裹（一键复制、不丢格式）。
 
 ## 🗂 目录结构
@@ -19,7 +19,7 @@
 │   ├── 12-prompt-methods.md   # 12 个剖析动作详解
 │   ├── core-agent.md          # Agent 工作协议
 │   └── core-soul.md           # Agent 核心灵魂
-└── skills/                # 14 个技能（每个一个 SKILL.md）
+└── skills/                # 15 个技能（每个一个 SKILL.md）
     ├── core-framework/        # 核心思考与工作框架（启动协议）
     ├── socratic-questioning/  # 苏格拉底式提问
     ├── dual-layer-explanation/# 双层解释法
@@ -33,7 +33,8 @@
     ├── minimal-experiment/    # 最小实验
     ├── talent-mining/         # 深度天赋挖掘
     ├── life-design/           # 人生设计术
-    └── prompt-dozen/          # 12 个 Prompt 模板合集
+    ├── prompt-dozen/          # 12 个 Prompt 模板合集
+    └── fde-ai-b2b-delivery/   # AI 企业级 FDE 交付方法论（SKILL.md + references/）
 ```
 
 ## 📝 格式规范（所有 SKILL.md 统一）
@@ -70,6 +71,7 @@ whenToUse: 何时使用此技能
 - Prompt 模板一律用 ` ```text ` 代码块包裹（方便一键复制）
 - 长技能（life-design / talent-mining）用完整角色指令，多轮对话式
 - 合集（prompt-dozen）内含 12 个模板，每个模板都是独立代码块
+- 例外：`fde-ai-b2b-delivery` 是**方法论型技能**（不是填空式 Prompt），正文是四阶段交付工作流 + Go/No-Go 关卡，并带 `references/` 子目录存放 15 个深入 playbook，用相对路径在正文引用。
 
 ## 🚀 如何使用
 
